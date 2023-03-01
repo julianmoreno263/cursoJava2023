@@ -1,6 +1,6 @@
 public class Variables {
     public static void main(String[] args) {
-        byte edad = 39;
+        int edad = 75;// variable edad
 
         System.out.println(edad);
     }
