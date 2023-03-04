@@ -2,7 +2,7 @@ public class DeclaracionesOperadores {
 
     public static void main(String[] args) {
 
-        int c = 5;// variable
+        // int c = 5;// variable
 
         final double apulgadas = 2.54;// constante se declara con final
         double cm = 6;

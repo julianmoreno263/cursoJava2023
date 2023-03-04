@@ -7,7 +7,6 @@ public class CalculosMath {
         // declararla como double
         // double raiz = Math.sqrt(9); //sqrt para sacar raiz cuadrada
 
-        double num1 = 5.8;
         double base = 5;
         double exponente = 3;
 
