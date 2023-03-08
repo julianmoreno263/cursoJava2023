@@ -6,8 +6,8 @@ package poo;
 public class UsoCoche {
     public static void main(String[] args) {
 
-        Coche Renault = new Coche();// instanciamos la clase Coche
+        // Coche Renault = new Coche();// instanciamos la clase Coche
 
-        System.out.println("El coche Renault tiene " + Renault.ruedas + " ruedas");
+        // System.out.println("El coche Renault tiene " + Renault.ruedas + " ruedas");
     }
 }
