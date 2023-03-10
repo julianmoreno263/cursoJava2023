@@ -25,7 +25,7 @@
 
  NOTA: RECORDAR QUE TODAS LAS PROPIEDADES DEBEN SER PRIVATE,DEBEN IR ENCAPSULADAS PARA QUE NO SE PUEDAN MANIPULAR DESDE OTRA CLASE A MENOS QUE SE USEN LOS METODOS INDICADOS,LOS CUALES SON LOS QUE PERMITEN LA COMUNICACION ENTRE CLASES.
 
- NOTA: EN LOS IF DE LOS SETTERS DONDE COMPARAMOS EL PARAMETRO DE TIPO sTRING CON EL STRING "SI", LO HACEMOS USANDO EL METODO EQUALS,PORQUE EN JAVA SE DEBE USAR EL EQUALS PARA COMPARAR STRINGS,NO SE USA EL ==, AUNQUE EN ESTE CODIGO FUNCIONARIA IGUAL,PERO SE DEBE USAR EL METODO EQUALS DE LA CLASE STRING.
+ NOTA: EN LOS IF DE LOS SETTERS DONDE COMPARAMOS EL PARAMETRO DE TIPO sTRING CON EL STRING "SI", LO HACEMOS USANDO EL METODO EQUALS,PORQUE EN JAVA SE DEBE USAR EL EQUALS PARA COMPARAR STRINGS,NO SE USA EL ==, AUNQUE EN ESTE CODIGO FUNCIONARIA IGUAL,PERO SE DEBE USAR EL METODO EQUALS DE LA CLASE STRING, O EL METODO EQUALSIGNORECASE PARA QUE NO HAYA PROBLEMA SI SON MAYUSCULAS O MINUSCULAS.
 
 
  */
@@ -103,7 +103,7 @@ public class Coche {
 
     public void setAsientosCuero(String asientosCuero) {
 
-        if (asientosCuero.equals("si")) {
+        if (asientosCuero.equalsIgnoreCase("si")) {
             this.asientosCuero = true;
         } else {
             this.asientosCuero = false;
@@ -112,7 +112,7 @@ public class Coche {
 
     public void setClimatizador(String climatizador) {
 
-        if (climatizador.equals("si")) {
+        if (climatizador.equalsIgnoreCase("si")) {
             this.climatizador = true;
         } else {
             this.climatizador = false;
