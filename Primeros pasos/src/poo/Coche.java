@@ -12,7 +12,14 @@
  3- nombre del metodo,generalmente por convencion siempre comienza con get
  5-entre {} el codigo que ejecutara el metodo y la instruccion return porque debe devolvernos algo.
 
- estos metodos se crean en la clase donde esta el constructor. Aqui creamos los metodos setter y getters y podemos manipular las variables aunque sean private,porque las variables private son accesibles solo dentro de la misma clase donde se declaran. Ahora el objeto de clase Coche ya puede usar este metodo desde la clase UsoCoche.
+ estos metodos se crean en la clase donde esta el constructor. Aqui creamos los metodos setter y getters y podemos manipular las variables aunque sean private,porque las variables private son accesibles solo dentro de la misma clase donde se declaran. Ahora el objeto de clase Coche ya puede usar este metodo desde la clase UsoCoche. De este modo ya evitamos que se puedan cambiar los valores de las propiedades y nos generen codigo erroneo, solo se podra acceder a las propiedades desde los metodos correspondientes, esto son buenas practicas de programacion.
+ 
+ Los setters me serviran para darle los valores propios de cada coche a la hora de hacer difernetes objetos.La sintaxis del setter es:
+ 1-palabra public
+ 2- palabra void(no devuelve dato,osea no tiene un return)
+ 3-nombre del metodo y entre {} el codigo del metodo.
+
+ NOTA: AQUI EN VSC CON EL PLUGIN QUE INSTALE DE JAVA, PONGO GET O SET Y EL ME DA LAS OPCIONES PARA CREAR AUTOMATICAMENTE LOS METODOS GETTER Y SETTER SEGUN LAS PROPIEDADES QUE TENGA DEFINIDAS.
  */
 
 package poo;
@@ -23,7 +30,12 @@ public class Coche {
     private int largo;
     private int ancho;
     private int motor;
-    private int peso;
+    private int pesoChasis;
+
+    // estas propiedades podran variar
+    String color;
+    int pesoTotal;
+    boolean asientosCuero, climatizador;
 
     // metodo constructor
     public Coche() {
@@ -32,11 +44,21 @@ public class Coche {
         largo = 2000;
         ancho = 300;
         motor = 1600;
-        peso = 500;
+        pesoChasis = 500;
     }
 
-    // metodos getter y setter
+    // metodos getters
     public String getLargo() {
-        return "El largo del coche es " + largo;
+        return "El largo del coche es " + largo + " cms";
     }
+
+    public String getColor() {
+        return "El color del coche es " + color;
+    }
+
+    // setters
+    public void setColor() {
+        color = "azul";
+    }
+
 }
