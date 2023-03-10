@@ -6,8 +6,12 @@ package poo;
 public class UsoCoche {
     public static void main(String[] args) {
 
-        // Coche Renault = new Coche();// instanciamos la clase Coche
+        Coche Renault = new Coche();// instanciamos la clase Coche
+
+        // usamos los metodos getter para poder acceder a las propiedades
+        Renault.getLargo();
 
         // System.out.println("El coche Renault tiene " + Renault.ruedas + " ruedas");
+
     }
 }
