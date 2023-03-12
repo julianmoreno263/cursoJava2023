@@ -74,7 +74,7 @@ public class Coche {
 
     public String getAsientos() {
 
-        if (this.asientosCuero == true) {
+        if (this.asientosCuero) {
 
             return "El coche tiene asientos de cuero";
         } else {
@@ -85,7 +85,7 @@ public class Coche {
 
     public String getClimatizador() {
 
-        if (this.climatizador == true) {
+        if (this.climatizador) {
 
             return "El coche tiene climatizador";
         } else {
