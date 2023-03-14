@@ -5,7 +5,7 @@ package poo;
 
 import javax.swing.*;
 
-public class UsoCoche {
+public class UsoVehiculo {
     public static void main(String[] args) {
 
         Coche Renault = new Coche();// instanciamos la clase Coche
@@ -18,6 +18,13 @@ public class UsoCoche {
         Mazda.setAsientosCuero(JOptionPane.showInputDialog("Tiene asientos de cuero? si/no", Mazda));
         Mazda.setClimatizador(JOptionPane.showInputDialog("Tiene climatizador? si/no", Mazda));
 
+        // objetos de la clase Furgoneta que hereda de Coche.
+        Furgoneta Audi = new Furgoneta(580, 7);
+        Audi.setColor("azul");
+        Audi.setAsientosCuero("si");
+        Audi.setClimatizador("si");
+
+        System.out.println("-----------------------coche Renault----------------------------");
         // usamos los metodos getter para poder acceder a las propiedades
         System.out.println(Renault.getDatosGenerales());
         System.out.println(Renault.getAsientos());
@@ -26,7 +33,7 @@ public class UsoCoche {
         System.out.println(Renault.getPesoTotal());// aqui llamamos al metodo tipo getter-setter
         System.out.println("El precio final del Renault es " + Renault.getPrecioFinal());
 
-        System.out.println("---------------------------------------------------");
+        System.out.println("------------------------coche Mazda---------------------------");
 
         System.out.println(Mazda.getDatosGenerales());
         System.out.println(Mazda.getAsientos());
@@ -34,6 +41,10 @@ public class UsoCoche {
         System.out.println(Mazda.getColor());
         System.out.println(Mazda.getPesoTotal());// tipo getter-setter
         System.out.println("El precio final del Mazda es " + Mazda.getPrecioFinal());
+
+        System.out.println("------------------------furgoneta Audi---------------------------");
+
+        System.out.println(Audi.getDatosGenerales() + Audi.getDatosFurgoneta());
 
         // System.out.println("El coche Renault tiene " + Renault.ruedas + " ruedas");
 
