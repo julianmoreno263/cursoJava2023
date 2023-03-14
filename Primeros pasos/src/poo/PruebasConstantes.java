@@ -2,12 +2,20 @@
  
 Ahora, la palbra static se puede aplicar tanto a variables,constantes y metodos,y cuando se aplica esta palabra quiere decir que ese metodo,variable o constante pertenecen a una clase.Por ejemplo vamos a signarle a cada empleado un id, debemos hacer esa variable de id, pero si tenemos una lista larga de empleados,asignarles el id manualmente puede que en un momento cometamos unerror y asignemos el mismo id a dos empleados,entonces necesitamos que el id se vaya asignando automaticamente.Cuando se van creando objetod de tipo empleado,cada objeto va teniendo su propia copia de las variables y por esto con el id se puede cometer un error,porque esa variable id es independiente en cada objeto,puede almacenar valores diferentes,lo que necesitamos es que esa variable no sea una copia diferente para cada objeto sino que sea la misma variable para todos los objetos que se van creando.Para eso se usa static, al declarar esa variable id como static significa que es una variable de la clase Empleado y sera comun para todos los objetos,no sera una copia para cada objeto,todos los objetos compartiran esa misma variable, y por lo mismo no sera una variable private sino public para que todos los objetos puedan usarla.De esta forma no hay necesidad de irle pasando por parametro el id a cada objeto creado.Para que ese id se vaya incrementando, ponemos este codigo antes de imprimir el segundo objeto empleado: Empleados.id++; Como ese parametro id pertenece es a la clase por ser static,se debe usar llamando a la clase a la que pertenece,osea la clase Empleado.Asi el id se va asignando automaticamente para cada objeto sin riesgo de ir a repetirlo.
 
-Asi como esta el programa, con id de tipo public y static, tenemos dos problemas,por eso esta solucion es parcial,primero nos saltamos la encapsulacion,porque estamos usando una variable por fuera de la clase donde la definimos,deberia el id ser private para no poderse modificar fuera de la clase y ademas para ir incrementando el id de cada objeto creado nos toca repetir el codigo de Empleados.id++;. Para solucionar esto,volvemos a dejar el id de tipo private sin static, y debajo creo otra variable que si sera public static y la inicializo en 1.Despues voy al constructor e igualo la variable id=IdSiguiente, y debajo aumento en uno IdSiguiente++; de esta forma al crear el primer objeto su id valdra 1 porque es lo que vale inicialmente IdSiguiente, y se incrementa IdSiguiente en uno,osea vale 2, al crear el segundo objeto el id ya no vale 1,vale 2,y asi sucesivamente,se van incrementando los id en uno a medida que se vayan creando objetos.
+Asi como esta el programa, con id de tipo public y static, tenemos dos problemas,por eso esta solucion es parcial,primero nos saltamos la encapsulacion,porque estamos usando una variable por fuera de la clase donde la definimos,deberia el id ser private para no poderse modificar fuera de la clase y ademas para ir incrementando el id de cada objeto creado nos toca repetir el codigo de Empleados.id++;. Para solucionar esto,volvemos a dejar el id de tipo private sin static, y debajo creo otra variable que si sera private static y la inicializo en 1.Despues voy al constructor e igualo la variable id=IdSiguiente, y debajo aumento en uno IdSiguiente++; de esta forma al crear el primer objeto su id valdra 1 porque es lo que vale inicialmente IdSiguiente, y se incrementa IdSiguiente en uno,osea vale 2, al crear el segundo objeto el id ya no vale 1,vale 2,y asi sucesivamente,se van incrementando los id en uno a medida que se vayan creando objetos.
 
 RESUMEN:
 1- PUBLIC SIGNIFICA QUE PUEDO USAR ESA VARIABLE FUERA DE LA CLASE
 2- STATIC SIGNIFICA QUE ES UNA VARIABLE DE LA CLASE,NO DE UN OBJETO EN ESPECIFICO,SE DEBE USAR EL NOMBRE DE LA CLASE PARA USARLA.
 3- FINAL SIGNIFICA QUE SU VALOR NO PUEDE VARIAR,POR ESO SE DICE EN LA PRACTICA QUE ES UNA CONSTANTE.
+
+Con los metodos pasa lo mismo, si los declaramos como static significa que pertenecen a la clase y no a algun objeto en particular,por lo que a la hora de invocarlos se debe de llamar a la clase a la que pertenecen, vamos a crear un metodo static que nos devuelva el id que sigue en la lista de trabajadores que estamos imprimiendo.
+
+Si vemos la clase Math por ejemplo,todos los metodos de esta clase son static,porque se pueden utilizar pero llamando primero a Math y despues el metodo,Math.sqrt(), Math.pow(), etc.El metodo main() vemos que es static, porque como todo programa java comienza a ejecutarse siempre desde el main() y en ese momento inicial no hay ningun objeto construido por eso ese metodo no pertenece a ningun objeto en particular, es static, ademas recordar que solo debe haber un metodo main() en un programa java,porque ese sera el punto inicial de ejecucion del programa.El main tambien recibe parametros, si vemos, recibe un array llamado args, mas adelante veremos como pasarle argumentos al main. Ahora, el metodo static que definimos esta accediendo a la variable IdSiguiente que es private,esto lo puede hacer porque esta variable tambien es static,solo por eso puede acceder a esa variable.En resumen, si se declara un metodo static, este no puede acceder a las variables de la clase a menos que estas tambien sean static.
+
+------------------------------------------------------------------------------------
+
+
 */
 
 package poo;
@@ -23,10 +31,8 @@ public class PruebasConstantes {
 
         trabajador1.setCambiaSeccion("RRHH");
 
-        System.out.println(trabajador1.getDatos());
-        System.out.println(trabajador2.getDatos());
-        System.out.println(trabajador3.getDatos());
-        System.out.println(trabajador4.getDatos());
+        System.out.println(trabajador1.getDatos() + "\n" + trabajador2.getDatos() + "\n" + trabajador3.getDatos() + "\n"
+                + trabajador4.getDatos() + "\n" + Empleados.getIdSiguiente());
 
     }
 }
@@ -36,13 +42,13 @@ class Empleados {
     private final String nombre;
     private String seccion;
     private int id;
-    public static int IdSiguiente = 1;
+    private static int IdSiguiente = 1;
 
     public Empleados(String nom) {
 
         this.nombre = nom;
         this.seccion = "Administración";
-        id = IdSiguiente;
+        this.id = IdSiguiente;
         IdSiguiente++;
 
     }
@@ -63,5 +69,11 @@ class Empleados {
     public String getDatos() {
 
         return "El nombre es: " + this.nombre + " ,la sección es: " + this.seccion + " y su id es: " + this.id;
+    }
+
+    // metodo static
+    public static String getIdSiguiente() {
+
+        return "El id siguiente es: " + IdSiguiente;
     }
 }
