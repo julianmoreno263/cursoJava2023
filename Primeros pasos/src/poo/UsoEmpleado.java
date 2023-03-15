@@ -25,6 +25,10 @@ import java.util.*;
 public class UsoEmpleado {
     public static void main(String[] args) {
 
+        // objetos de tipo Jefatura
+        Jefatura jefeRRHH = new Jefatura("Juan", 55000, 2006, 9, 25);
+        jefeRRHH.setIncentivo(2500);
+
         // creacion de objetos de tipo Empleado
         // Empleado empleado1 = new Empleado("Pepe trueno", 85000, 1990, 12, 22);
 
@@ -50,12 +54,32 @@ public class UsoEmpleado {
         // + empleado3.getFechaAlta());
 
         // codigo alternativo usando un array
-        Empleado misEmpleados[] = new Empleado[4];
+        Empleado misEmpleados[] = new Empleado[6];
 
         misEmpleados[0] = new Empleado("Pepe trueno", 85000, 1990, 12, 22);
         misEmpleados[1] = new Empleado("Ana Lopez", 95000, 1995, 06, 02);
         misEmpleados[2] = new Empleado("Maria Perez", 105000, 2002, 03, 15);
         misEmpleados[3] = new Empleado("Antonio Fernandez");
+        misEmpleados[4] = jefeRRHH;// aqui estamos usando el polimorfismo,principio de sustitucion
+
+        /*
+         * aqui podemos tambien almacenar un objeto tipo jefatura creandolo con el
+         * constructor y almacenandolo en el array que es de tipo empleado,pero a la
+         * hora de querer utilizar los metodos de la clase jefatura no lo podemos hacer
+         * porque en si este objeto de tipo jefatura se almacena en una posicion de un
+         * array de tipo empleado,esto pasa cuando almacenamos de este modo los objetos
+         * de la subclase, si queremos ahora usar por ejemplo el metodo setIncentivo()
+         * para este objeto de la posicion 5 debemos hacer una refundicion o casting,que
+         * es pasar de un tipo de objeto a otro.El casting de objetos se hace igual que
+         * con las variables, y al realizarlo ya puedo utilizar los metodos
+         * correspondientes a ese objeto.Pero el casting se puede hacer utilizando la
+         * reglade "es un...", osea viendo que un jefe es un empleado,pero un empleado
+         * no siempre es un jefe,por lo que no se puede hacer un casting de un empleado
+         * pasarlo a jefe.
+         */
+        misEmpleados[5] = new Jefatura("Ana Perez", 95000, 1999, 5, 26);
+        Jefatura jefeFinanzas = (Jefatura) misEmpleados[5];// asi hago el casting de objetos
+        jefeFinanzas.setIncentivo(55000);
 
         // primer for para subir el porcentaje del sueldo
         // for (int index = 0; index < misEmpleados.length; index++) {
@@ -141,10 +165,14 @@ class Empleado {
     }
 }
 
+/*
+ * 
+ */
 class Jefatura extends Empleado {
 
     private double incentivo;
 
+    // metodo constructor
     public Jefatura(String nom, double sue, int año, int mes, int dia) {
 
         // como la clase padre Empleado tiene dos constructores y ambos reciben
@@ -175,6 +203,71 @@ class Jefatura extends Empleado {
          * empleado por lo que no tiene un valor establecido para operar con el,lo que
          * necesitamos es traer el sueldo del empleado con super.getSueldo() y a este
          * sumarle el incentivo.
+         * 
+         * -----------------------------------------------------------------
+         * 
+         * El "polimorfismo" quiere decir que un objeto se puede comportar de una forma
+         * u
+         * otra dependiendo del contexto.Esto utiliza el principio de sustitucion,el
+         * cual dice que se puede utilizar un objeto de la subclase siempre que el
+         * programa espere un objeto de la superclase.Por ejemplo, podemos crear un
+         * objeto tipo jefe que hereda de Empleado, ahora,ya creado este objeto lo
+         * podemos guardar en el array misEmpleados en donde estamos guardando objetos
+         * de tipo Empleado,para esto debemos aumentar a 5 el array para que espere otro
+         * objeto mas: misEmpleados[5], y despues simplemente guardo en este array al
+         * objeto jefe asi:
+         * 
+         * misEmplados[4]=jefeRRHH;
+         * 
+         * Aqui se utiliza el polimorfismo,se utiliza el principio de sustitucion porque
+         * el array esta esperando un objeto de tipo empleado y le estamos pasando un
+         * objeto tipo jefatura.(v43). En ultimas se puede hacer esto porque Jefatura
+         * hereda de Empleado,estan relacionados. Porlo mismo, cuando recorremos ese
+         * array con el for, en donde dentro de este for estamos llamando al metodo
+         * getSueldo() para que nos traiga el sueldo de los objetos, java comienza a
+         * recorrerlos y sabe de que tipo son los objetos y asi mismo llama a sus
+         * correspondientes metodos,es decir, el metodo getSueldo() esta en la clase
+         * empleado y hay otro getSueldo en jefatura el cual muestra el sueldo del jefe
+         * con el incentivo, entonces java va recorriendo este array y sabe que metodo
+         * getSueldo debe aplicar dependiendo del tipo de objeto,esto lo hace
+         * automaticamente, porque aqui esta operando el polimorfismo.El jdk de java es
+         * el que hace esto automaticamente,detecta el tipo de objeto y asi mismo
+         * utiliza sus correspondientes metodos, esto es lo que se llama
+         * "enlazado dinamico".
+         * 
+         * ---------------------------------- clases final ----------------------
+         * 
+         * Ahora, las clases pueden ser final,como las propiedades y los metodos, esto
+         * implica que si establecemos una clase como final, no se podra continuar
+         * heredando de esa clase,por ejemplo si en este momento quisieramos hacer una
+         * clase Director que herede de Jefatura lo podemos hacer,pero si no queremos
+         * que de jefatura se extiendan mas clases con la herencia la solucion es
+         * declarar la clase Jefatura como final. Para declarar la clase Jefatura como
+         * final es asi:
+         * 
+         * final class Jefatura extends Empleado{}
+         * 
+         * declaramos esta clase como final para detener aqui la cadena de la herencia y
+         * de este modo ninguna clase podra hereda de Jefatura.
+         * 
+         * ---------------------metodos final ---------------------
+         * 
+         * Asi como las clases pueden ser final,tambien los metodo se pueden declarar
+         * final,por ejemplo tenemos dos metodos getSueldo(), uno en la clase Empleado y
+         * otro en Jefatura,si nosotros no quisieramos que en la clase Jefatura que
+         * hereda de Empleado hubiera otro metodo con el mismo nombre pero que hace una
+         * funcionalidad diferente(osea se sobreescriba),la solucion es declarar nuestro
+         * metodo de Empleado como final, asi una clase aunque herede de Empleado no
+         * podra sobreescribir ese metodo.Para declarar un metodo final seria asi:
+         * 
+         * public final double getSueldo(){}
+         * 
+         * Si necesitamos de todas formas crear ese metodo en la clase que hereda,lo
+         * podemos llamar de forma diferente o simplemente obviamos la herencia,pero
+         * depende de la logica del programa.Podemos ver en la api de java que hay
+         * metodos y clases declarados como final,esto lo hacen esos programadores para
+         * evitar que se creen metodos con el mismo nombre y se sobreescriban,igual con
+         * las clases.
          */
 
         super(nom, sue, año, mes, dia);
@@ -193,3 +286,11 @@ class Jefatura extends Empleado {
         return sueldoJefe + incentivo;
     }
 }
+
+// class Director extends Jefatura {
+
+// public Director(String nom, double sue, int año, int mes, int dia) {
+
+// super(nom, sue, año, mes, dia);
+// }
+// }
