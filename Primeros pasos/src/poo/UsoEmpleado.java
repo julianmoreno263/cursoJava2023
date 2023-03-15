@@ -13,6 +13,10 @@ NOTA: CUANDO ALGO NOS SALE null, ES PORQUE SE REFIERE A UN OBJETO SIN VALOR,QUE 
 Ahora, si debo crear varios objetos de los cuales solo se el nombre,puedo darles un sueldo y fecha por defecto utilizando en ese segundo constructor el primer constructor que me deja poner los 5 argumentos,para llamar a ese primer constructor dentro del segundo utilizo el this. Cuando utilice el segundo constructor que solo me pide un nombre,dentro de este llamo al primer constructor con this() y alli dentro le paso los argumentos por defecto que le dare a esos objetos de los que solo se el nombre. Por ultimo,en java una clase puede crearse sin metodo constructor,depende lo que haga la clase, en estos casos se estara usando el constructor por defecto,es un constructor vacio. Tambien como puede haber sobrecarga de constructores en un programa java, tambien puede haber sobrecarga de metodos, esto es tener mas de un metodo con el mismo nombre pero con diferente numero de parametros, mas adelante lo veremos.
 */
 
+/*------------------------------------------------------------------------------ */
+
+/*en este mismo ejercicio vamos a implementar la herencia, como esta clase Empleado me sirve para convertirla en clase padre de otras subclases,por ejemplo la clase Jefatura,porque un jefe es un empleado,pues vamos a realizar aqui la herencia de clases(recordar que vamos a hacer este programa en este mismo archivo,aqui estara todo). */
+
 package poo;
 
 import java.util.*;
@@ -82,7 +86,7 @@ public class UsoEmpleado {
     }
 }
 
-// clase con metodo constructor para crear los objetos
+// clase con metodo constructor para crear los objetos, esta es la clase padre.
 class Empleado {
 
     // propiedades
@@ -134,5 +138,58 @@ class Empleado {
 
         double aumento = this.sueldo * (porcentaje / 100);
         sueldo += aumento;
+    }
+}
+
+class Jefatura extends Empleado {
+
+    private double incentivo;
+
+    public Jefatura(String nom, double sue, int año, int mes, int dia) {
+
+        // como la clase padre Empleado tiene dos constructores y ambos reciben
+        // parametros, estamos obligados a pasarle al constructor padre(super) los
+        // parametros,ya sea los 5 del primer constructor o el unico parametro del
+        // segundo. Entonces,como vamos a utilizar el primer constructor padre, al
+        // constructor de Jefatura le pasamos los 5 parametros,cuando creemos un objeto
+        // tipo jefe le pasamos estos 5 parametros,ya almacenados estos parametros se
+        // pasan al constructor padre(super) el cual sabe que debe operar con el primer
+        // constructor y asi crea el objeto.
+
+        /*
+         * ahora, esta clase tambien tendra un metodo propio para los jefes para poder
+         * darles un incentivo. Ahora,debo ahcer un getter para que me devuelva el
+         * sueldo de un jefe, en la clase padre tenemos un metodo llamado
+         * getSueldo(),pero este no nos sirve porque este metodo se refiere a un sueldo
+         * de un empleado normal y no al de un jefe que recibe ademas un incentivo,por
+         * lo que se debe hacer una sobreescritura de metodo,osea,utilizamos ese metodo
+         * getSueldo() pero dentro creamos un codigo diferente para que me permita
+         * adicionar el incentivo que establecimos para el jefe.Cuando hacemos una
+         * sobreescritura de metodos vsc nos lo indica con @Override encima del metodo,
+         * esto por el plugin instalado de java.Hay que indicarle a java que vamos a
+         * utilizar el metodo getSueldo pero de la superclase poniendo super delante del
+         * metodo,osea, el getSueldo que creamos para jefe es uno diferente al getSueldo
+         * de super que es el sueldo del emleado,por lo que tenemos que indicarlo,si
+         * solo dejamos sueldoJefe=getSueldo(),java interpreta ese getSueldo como el
+         * metodo pero de la clase jefe y este metodo no es el que tiene el sueldo de un
+         * empleado por lo que no tiene un valor establecido para operar con el,lo que
+         * necesitamos es traer el sueldo del empleado con super.getSueldo() y a este
+         * sumarle el incentivo.
+         */
+
+        super(nom, sue, año, mes, dia);
+    }
+
+    // setter
+    public void setIncentivo(double incentivo) {
+        this.incentivo = incentivo;
+    }
+
+    // getter utilizando sobreescritura de metodos con getSueldo()
+    @Override
+    public double getSueldo() {
+
+        double sueldoJefe = super.getSueldo();
+        return sueldoJefe + incentivo;
     }
 }
