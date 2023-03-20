@@ -15,7 +15,11 @@ Ahora, si debo crear varios objetos de los cuales solo se el nombre,puedo darles
 
 /*------------------------------------------------------------------------------ */
 
-/*en este mismo ejercicio vamos a implementar la herencia, como esta clase Empleado me sirve para convertirla en clase padre de otras subclases,por ejemplo la clase Jefatura,porque un jefe es un empleado,pues vamos a realizar aqui la herencia de clases(recordar que vamos a hacer este programa en este mismo archivo,aqui estara todo). */
+/*en este mismo ejercicio vamos a implementar la herencia, como esta clase Empleado me sirve para convertirla en clase padre de otras subclases,por ejemplo la clase Jefatura,porque un jefe es un empleado,pues vamos a realizar aqui la herencia de clases(recordar que vamos a hacer este programa en este mismo archivo,aqui estara todo).
+ 
+
+
+ */
 
 package poo;
 
@@ -285,6 +289,7 @@ class Jefatura extends Empleado {
         double sueldoJefe = super.getSueldo();
         return sueldoJefe + incentivo;
     }
+
 }
 
 // class Director extends Jefatura {
@@ -294,3 +299,4 @@ class Jefatura extends Empleado {
 // super(nom, sue, año, mes, dia);
 // }
 // }
+
