@@ -85,6 +85,29 @@ public class UsoEmpleado {
         Jefatura jefeFinanzas = (Jefatura) misEmpleados[5];// asi hago el casting de objetos
         jefeFinanzas.setIncentivo(55000);
 
+        // aqui utilizo el metodo de mi interfaz Jefes.java
+        System.out.println(jefeFinanzas.tomarDecisiones(" dar más días de vacaciones a los empleados"));
+
+        /*
+         * aqui podemos instanciar otro objeto tipo Empleado y a la vez usando
+         * sustitucion podemos hacer un objeto de la interfaz Comparable,y utilizar
+         * instanceof() para ver el tipo del objeto.
+         */
+        // Empleado directorComercial = new Jefatura("Sandra", 85000, 2012, 04, 05);
+        // Comparable ejemplo = new Empleado("Ingrid", 95000, 2020, 03, 8);
+
+        // // esto se lee: directorCOmercial es una instancia de tipo Empleado
+        // if (directorComercial instanceof Empleado) {
+
+        // System.out.println("El director comercial es de tipo Jefatura");
+        // }
+
+        // // ejemplo es una instancia de la interfaz Comparable
+        // if (ejemplo instanceof Comparable) {
+
+        // System.out.println("ejemplo implementa la interfaz Comparable");
+        // }
+
         // primer for para subir el porcentaje del sueldo
         // for (int index = 0; index < misEmpleados.length; index++) {
 
@@ -104,6 +127,12 @@ public class UsoEmpleado {
         // misEmpleados[index].getFechaAlta());
         // }
 
+        /*
+         * Aqui antes de imprimir el array lo ordeno con la clase Arrays.sort,la cual
+         * tiene una interfaz que se debe implementar en la clase Empleado.
+         */
+        Arrays.sort(misEmpleados);
+
         // segundo for mejorado para mostrar los datos de los empleados
         for (Empleado e : misEmpleados) {
 
@@ -115,7 +144,7 @@ public class UsoEmpleado {
 }
 
 // clase con metodo constructor para crear los objetos, esta es la clase padre.
-class Empleado {
+class Empleado implements Comparable {
 
     // propiedades
     private String nombre;
@@ -167,12 +196,43 @@ class Empleado {
         double aumento = this.sueldo * (porcentaje / 100);
         sueldo += aumento;
     }
+
+    /*
+     * implementacion del metodo compareTo de la interfaz Comparable, lo primero que
+     * debo hacer es una refundicion o casting porque compareTo recibe un parametro
+     * de tipo Object, y nuestro array es de tipo Empleado,entonces paso el Object a
+     * tipo Empleado.Despues,con this hago referencia al sueldo de un objeto
+     * Empleado para realizar las comparaciones.El return 0 es la tercera
+     * opcion,osea si los dos objetos son iguales devuelve un 0.Listo,aqui es en si
+     * donde se van ordenando por sueldo los objetos de tipo Empleado del
+     * array.Comparamos con el metodo getSueldo y no con el argumento de
+     * sueldo,porque como unos empleados obtienen un incentivo,si lo hacemos solo
+     * con sueldo puede que algun empleado con menor sueldo aparezca por encima de
+     * otro con mayor sueldo,entonces como el metodo getSueldo si es el que
+     * establece el sueldo con el incentivo lo hacemos con este para evitar este
+     * problema. y que todo se imprima bien.
+     */
+    public int compareTo(Object miObjeto) {
+
+        Empleado otroEmpleado = (Empleado) miObjeto;
+
+        if (this.getSueldo() < otroEmpleado.getSueldo()) {
+            return -1;
+        }
+
+        if (this.getSueldo() > otroEmpleado.getSueldo()) {
+            return 1;
+        }
+
+        return 0;
+
+    }
 }
 
 /*
  * 
  */
-class Jefatura extends Empleado {
+class Jefatura extends Empleado implements Jefes {
 
     private double incentivo;
 
@@ -290,6 +350,12 @@ class Jefatura extends Empleado {
         return sueldoJefe + incentivo;
     }
 
+    // implementamos el metodo de la interfaz Jefes.java
+    public String tomarDecisiones(String decision) {
+
+        return "Un miembro de la dirección ha tomado la decisión de: " + decision;
+    }
+
 }
 
 // class Director extends Jefatura {
@@ -299,4 +365,3 @@ class Jefatura extends Empleado {
 // super(nom, sue, año, mes, dia);
 // }
 // }
-
