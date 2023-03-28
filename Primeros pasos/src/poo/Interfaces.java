@@ -134,4 +134,26 @@
  * HEREDADO DE OTRAS,ASI EXTENDEMOS LA FUNCIONALIDAD DE LAS CLASES Y SOLVENTAMOS
  * LA LIMITACION DE LA HERENCIA MULTIPLE EN JAVA.
  * 
+ * --------------- JERARQUIA DE INTERFACES ------------------
+ * Vamos a crear la interfaz Trabajadores la cual tendra un metodo de
+ * estableceBono(), asi todos los trabajadores recibiran un bono, la clase que
+ * implemente esta interfaz debera implementar este metodo de forma
+ * obligatoria.Debera haber un monto base para el bono que sera de 1500, ya
+ * dependiendo del trabajador se le podra sumar algo mas a ese bono,pero de base
+ * seran 1500.Recordar que las variables de una interfaz son todas public static
+ * final,el jdk los reconoce por defecto asi no se pongan.
+ * 
+ * Ahora, las interfaces tambien pueden heredar de otras interfaces,como en la
+ * jerarquia de clases con la herencia,vamos a hacer que la interfaz Jefes
+ * herede de Trabajadores,esto se hace con la misma palabra reservada
+ * extends.Esto implica que la clase que implemente la interfaz Jefes,debe
+ * implementar los metodos tanto de Jefes como de Trabajadores.Entonces en la
+ * clase Jefatura debemos implementar tambien el metodo de la interfaz
+ * Trabajadores porque los jefes recibiran este bono con otros incentivos
+ * adicionales,y despues vamos a la clase Empleado e implementamos la interfaz
+ * Trabajadores para que todo empleado reciba el bono normal,osea sin la
+ * prima.Este metodo de la interfaz Trabajadores se implementa en las clases
+ * segun la logica del programa,y se puede implementar segun la clase con la
+ * prima extra o no.
+ * 
  */

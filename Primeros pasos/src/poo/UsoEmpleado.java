@@ -88,6 +88,15 @@ public class UsoEmpleado {
         // aqui utilizo el metodo de mi interfaz Jefes.java
         System.out.println(jefeFinanzas.tomarDecisiones(" dar más días de vacaciones a los empleados"));
 
+        // aqui imprimo el bono que se establece con el metodo de la interfaz
+        // trabajadores
+        System.out.println(
+                "El jefe " + jefeFinanzas.getNombre() + " recibe un bono de " + jefeFinanzas.estableceBono(500));
+
+        // implementacion del metodo de la interfaz Trabajador para un empleado normal
+        System.out.println("El empleado " + misEmpleados[5].getNombre() + " recibe un bono de "
+                + misEmpleados[5].estableceBono(300));
+
         /*
          * aqui podemos instanciar otro objeto tipo Empleado y a la vez usando
          * sustitucion podemos hacer un objeto de la interfaz Comparable,y utilizar
@@ -144,7 +153,7 @@ public class UsoEmpleado {
 }
 
 // clase con metodo constructor para crear los objetos, esta es la clase padre.
-class Empleado implements Comparable {
+class Empleado implements Comparable, Trabajadores {
 
     // propiedades
     private String nombre;
@@ -195,6 +204,12 @@ class Empleado implements Comparable {
 
         double aumento = this.sueldo * (porcentaje / 100);
         sueldo += aumento;
+    }
+
+    // implementacion metodo de interfaz Trabajadores
+    public double estableceBono(double gratificacion) {
+
+        return Trabajadores.bonoBase + gratificacion;
     }
 
     /*
@@ -354,6 +369,14 @@ class Jefatura extends Empleado implements Jefes {
     public String tomarDecisiones(String decision) {
 
         return "Un miembro de la dirección ha tomado la decisión de: " + decision;
+    }
+
+    // implemento el metodo de la interfaz Trabajadores la cual se pasa por herencia
+    // a Jefes
+    public double estableceBono(double gratificacion) {
+
+        double prima = 2000;
+        return Trabajadores.bonoBase + gratificacion + prima;
     }
 
 }

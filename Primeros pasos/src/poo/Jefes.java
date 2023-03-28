@@ -1,6 +1,6 @@
 package poo;
 
-public interface Jefes {
+public interface Jefes extends Trabajadores {
 
     String tomarDecisiones(String decision);
 }
