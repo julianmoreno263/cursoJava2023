@@ -1,3 +1,5 @@
+package fundamentos;
+
 import javax.swing.JOptionPane;
 
 /*en este ejercicio validaremos una direccion de correo con un for,  la direccion de correo debe tener una arroba,entonces validaremos si lleva este caracter,para esto utilizaremos la clase String que viene del paquete por defecto java.lang y utilizaremos el metodo charat el cual retorna un caracter de un indice especificado(ver api), este metodo es dinamico porque no se especifica "static" en la api,por lo que debemos crear un objeto de la clase String para poder utilizar este metodo.Tambien utilizaremos el metodo length de esta misma clase String,este metodo nos retorna en un int la longitud de un string,tambien es dinamico. */

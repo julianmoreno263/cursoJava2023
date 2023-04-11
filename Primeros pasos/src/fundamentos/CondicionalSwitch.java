@@ -1,3 +1,5 @@
+package fundamentos;
+
 /*switch es un condicional que sirve para evaluar varias condiciones de forma facil basados en una condicion.Vamos a crear un programa que calcule áreas de figuras, con JOptionPane va a ir introduciendo los valores y con Scanner va a elegir las 4 opciones de las figuras.Importamos java.util para scanner y javax.swing para JOptioPane. */
 
 import java.util.*;

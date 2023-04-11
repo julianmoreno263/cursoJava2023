@@ -1,3 +1,5 @@
+package fundamentos;
+
 /*en este ejercicio rellenaremos un array con numeros aleatorios y luego la recorremos. Utilizaremos el metodo random de Math para generar numeros aleatorios, como este metodo devuelve un double lo redondeamos con el metodo round y todo lo refundimos en un int.*/
 
 public class BucleForEach2 {

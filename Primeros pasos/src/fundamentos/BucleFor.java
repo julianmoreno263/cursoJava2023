@@ -1,5 +1,7 @@
 /*veamos los bucles determinados,osea que podemos saber cuantas veces se repetira el bucle, el primero es el bucle for,haremos un bucle para que nos repita nuestro nombre. */
 
+package fundamentos;
+
 public class BucleFor {
     public static void main(String[] args) {
 

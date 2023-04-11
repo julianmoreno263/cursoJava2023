@@ -1,3 +1,5 @@
+package fundamentos;
+
 /*arrays en java,para almacenar datos del mismo tipo,se pueden declarar y inicializar en la misma linea,o se  declaran en una linea diciendo antos elementos va a almacenar y se inicializa en la siguiente linea.Se debe especificar el tipo de dato  almacenar,igual que en variables. */
 
 public class Arrays {

@@ -1,3 +1,5 @@
+package fundamentos;
+
 /*vamos aver un ejercicio practico con arrays de dos dimensiones, el programa debe calcular los porcentaje en que se incrementa una cantidad a traves de varios años.Declaro variables double porque los resultados dan decimales.*/
 
 public class Arrays4 {

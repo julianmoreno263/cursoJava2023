@@ -1,3 +1,5 @@
+package fundamentos;
+
 /*el bucle for-each(por cada) se creo para poder recorrer arrays mas facil. vamos a crear un array de string y la llenaremos con nombres de paises por medio de una ventana JOptionPane. */
 
 import javax.swing.*;

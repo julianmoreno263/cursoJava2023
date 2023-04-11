@@ -1,3 +1,4 @@
+package poo;
 
 /*Las clases internas son clases dentro de otras(como los if anidados), las clases internas nos sirven para:
 

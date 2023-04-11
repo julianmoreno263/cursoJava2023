@@ -1,3 +1,5 @@
+package fundamentos;
+
 public class ManipulaCadenas {
     public static void main(String[] args) {
         // manipulacion de cadenas con la clase String,en java el string no es un dato

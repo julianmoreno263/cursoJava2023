@@ -1,3 +1,5 @@
+package poo;
+
 public interface Trabajadores {
 
     double estableceBono(double gratificacion);

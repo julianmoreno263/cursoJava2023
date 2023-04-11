@@ -1,5 +1,7 @@
 /*el otro bucle indeterminado es el do-while,se ejecuta al menos una vez el codigo de su interior aunque la condicion sea falsa, haremos un programa que calcule el peso de una persona,utilizaremos como entrada JOptionPane de javax.swing.El usuario debe introducir las letras h o m(sin importar si son mayusculas o minusculas) si introduce por ejemplo la palabra "hombre","mujer",u otra cosa, el bucle le sigue sacando la ventana,el peso se calcula segun el genero.El codigo del while se puede interpretar como: si el string genero es diferente a una h y el string genero es diferente a una m, se repetira el bucle. */
 
+package fundamentos;
+
 import javax.swing.*;
 
 public class BucleDoWhile {

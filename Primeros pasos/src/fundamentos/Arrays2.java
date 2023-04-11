@@ -1,3 +1,5 @@
+package fundamentos;
+
 /*vamos a ver los arrays de dos dimensiones, en si es tener un array dentro de otro, por ejemplo en el indice 0 del array principal ponemos no un dato normal sino un array,asi tenemos un array bidimensional.Vamos a crear un array de 4 posiciones y dentro de este otro array de 5 indices,por lo que tendremos 20 elementos en total y despues lo rellenamos con un for. Para imprimir un array bidimensional se haria asi:  miArray [][] en un println, y dentro de cada [] pongo los correspondientes indices de cada array a donde quiero apuntar. Para recorrer un array de estos debo utilizar dos bucles for anidados,el primer for recorre la primera dimension y el for anidado recorre la segunda.*/
 
 public class Arrays2 {

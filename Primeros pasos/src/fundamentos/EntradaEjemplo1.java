@@ -1,3 +1,5 @@
+package fundamentos;
+
 import java.util.*;
 
 public class EntradaEjemplo1 {
