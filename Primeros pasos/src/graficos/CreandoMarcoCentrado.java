@@ -4,6 +4,10 @@ vamos a crear un frame que aparezca centrado en nuestra pantalla,y para eso debe
  
 Por ultimo para poner un icono diferente al default,uso la clase ImageIcon y creo un objeto de esta clase(por ejemplo lo llamo miIcono) y le paso la ruta al archivo de la imagen,despues creo otro objeto de la clase Image para guardar y establecer en este objeto la imagen del icono con su metodo getImage() y setIconImage().
 
+-------------------------------------------------------------
+
+
+
 
  */
 
