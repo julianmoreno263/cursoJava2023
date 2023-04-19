@@ -5,9 +5,17 @@ Para empezar,debemos crear un frame,esto lo hacemos con la clase JFrame del paqu
 Por defecto las ventanas creadas con JFrame no aparecen visibles y no tienen tamaño,por lo que se les debe dar estas caracteristicas usando los metodos setVisible y setSize.Creada la clase para el marco,la instanciamos desde la clase main.
 
 Por ultimo debemos decirle a la ventana que tiene que hacer cuando se cierre,esto lo hacemos con el metodo setDefaulClosetOperation(JFrame.EXIT_ON_CLOSE),el metodo setDefault recibe como parametro un int,si vemos la API lo veremos,ponemos exit_on_close porque si vemos esta es una constante de clase,en la API la describen,y esta constante es static,por lo que debemos utilizar la clase a la que pertenece(JFrame),y esta constante tiene un valor entero que e s1.3,por eso se pone,y lo que indica es que cierre la aplicacion,o termine la operacion del programa.
+
+----------------------------------------------------------------------------------------
+(v56) ahora vamos a ver como abrir la ventana pero en una ubicacion diferente a la que sale por defecto(que es la esquina superior izquierda),y tambien como cambiar el icono y ponerle un titulo.Como la clase FJframe hereda de muchas otras clases,ya tiene varios metodos para cambiar la posicion de un frame,ponerle un icono,redimensionar la ventana,etc.(ver API). setLocation usa el plano cartesiano para posicionar el frame,donde el punto 0,0 sera la esquina superior izquierda de la pantalla y a apartir de alli podemos posicionar el frame usando numeros positivod(ver video). setBounds hace todo de una vez,da posicion y tamaño. setResizable permite o no redimensionar la pantalla,osea que se pueda agrandar con el puntero del mouse. setExtendedState(Frame.MAXIMIZED_BOTH) permite que al abrir el frame salga del tamaño completo de la pantalla,usa como parametros MAXIMIZED_BOTH de la clase Frame.
+
+----------------------------------------------------------------------------------------------
+
 */
 
 package graficos;
+
+import java.awt.Frame;
 
 import javax.swing.*;
 
@@ -27,7 +35,13 @@ class miMarco extends JFrame {
 
     // constructor
     public miMarco() {
-        setSize(500, 300);
+        // setSize(500, 300);
+        // setLocation(500, 300);
+
+        setBounds(500, 300, 550, 250);
+        setResizable(false);
+        // setExtendedState(Frame.MAXIMIZED_BOTH);
+        setTitle("MI VENTANA JAVA");
     }
 
 }
