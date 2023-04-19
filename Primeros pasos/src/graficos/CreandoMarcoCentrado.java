@@ -2,7 +2,7 @@
 
 vamos a crear un frame que aparezca centrado en nuestra pantalla,y para eso debemos utilizar la clase Toolkit para poder usar los metodos que nos permitan saber la resolucion de nuestra pantalla.Y sabiendo el tamaño real de mi pantalla dibujaremos un frame que sea de la mitad de mi pantalla.
  
-Por ultimo para poner un icono diferente al default,uso la clase Image con su metodo getImage() y setIconImage()
+Por ultimo para poner un icono diferente al default,uso la clase ImageIcon y creo un objeto de esta clase(por ejemplo lo llamo miIcono) y le paso la ruta al archivo de la imagen,despues creo otro objeto de la clase Image para guardar y establecer en este objeto la imagen del icono con su metodo getImage() y setIconImage().
 
 
  */
@@ -46,8 +46,10 @@ class MarcoCentrado extends JFrame {
         setSize(anchoPantalla / 2, alturaPantalla / 2);
         setLocation(anchoPantalla / 4, alturaPantalla / 4);
         setTitle("Marco Centrado Java");
-        Image miIcono = miPantalla.getImage("icono2.jpg");
-        setIconImage(miIcono);
+
+        ImageIcon miIcono = new ImageIcon("C:/Users/USER/Desktop/curso java 2023/Primeros pasos/scorpion.jpg");
+        Image MiImagen = miIcono.getImage();
+        setIconImage(MiImagen);
 
     }
 }
