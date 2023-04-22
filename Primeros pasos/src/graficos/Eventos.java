@@ -11,7 +11,10 @@ Para esto,java tiene:
 Si queremos poner mas botones a la escucha del evento y que cada boton cambie a un color diferente la lamina,debemos utilizar dentro de actionPerformed el metodo getSource del objeto ActionEvent que se esta pasando por parametro,asi se captura cual es el boton que esta desencadenando la accion al dar click.Para esto creamos un objeto de tipo Object y este utilizara el metodo getSource.(v66)
 
 
+--------------------------------------------------------------------------------
+(v67) Tambien podemos crear un oyente diferente a la lamina para tener separados tanto el objeto fuente(los botones) como el listener(la lamina en este caso) y asi ver mejor todo el codigo, porque en este momento el objeto fuente se encuentra dentro del listener que es la misma lamina y puede ser algo confuso,entonces crearemos otro objeto diferente que sera el listener y le cambiaremos el color de fondo.
 
+Entonces la lamina como ya no sera el listener le quitamos la implementacion de la interfaz y a los botones ya no se les pasa el this que hacia referencia a la lamina,ademas quitamos el action performed de donde estaba.
 
 
  */
