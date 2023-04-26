@@ -10,6 +10,11 @@ puedo usar setBounds tambien con elementos,para posicionar los cuadros de texto 
 
 La clase oyente LanzaFocus debe ser clase interna de LaminaFocus para que pueda acceder a los objetos de cuadro1 y cuadro2.Ahora ya puedo crear un objeto de esta clase oyente y utilizarlo dentro de los metodos de la interfaz FocusListener junto a los objetos creados para asi determinar cual objeto tiene el foco, poniendolos a la escucha con addFocusListener.
 
+-------------------------------------------------------------------
+(v75) vamos a completar este ejercicio validando una direccion de email, esta direccion la escribimos en el primer cuadro y cuando pasemos al segundo cuadro de texto(osea cuando este cuadro1 pierda el foco) nos dira si la direccion es correcta o no, asi que programamos el codigo dentro del metodo focusLost().Para evaluar el email,creamos un bucle for que vaya recorriendo el email y evalue con el metodo charAt() si hay una arroba en la cadena d estring,si la hay pasara una variable booleana a true.
+
+NOTA: PARA QUE SE TOME EL @ COMO UN CARACTER TOCA PONERLO ENTRE COMILLAS SIMPLES,SI LO PONGO ENTRE COMILLAS DOBLES LO TOMA COMO UNA CADENA Y SALE UN ERROR DE COMPARACION DE TIPOS,PORQUE NO SE PUEDE COMPARAR UN STRING CON UN CARACTER, TOCA VALIDAR ASI:  if (email.charAt(i) == '@')
+
 
  */
 
@@ -35,6 +40,7 @@ class MarcoEventos7 extends JFrame {
 
         setVisible(true);
         setBounds(450, 300, 600, 450);
+
         add(new LaminaFoco());
 
     }
@@ -83,7 +89,23 @@ class LaminaFoco extends JPanel {
 
         @Override
         public void focusLost(FocusEvent e) {
-            System.out.println("He perdido el foco!");
+
+            boolean comprobacion = false;
+            String email = cuadro1.getText();
+
+            for (int i = 0; i < email.length(); i++) {
+
+                if (email.charAt(i) == '@') {
+
+                    comprobacion = true;
+                }
+            }
+
+            if (comprobacion) {
+                System.out.println("Email correcto!");
+            } else {
+                System.out.println("Email incorrecto!");
+            }
         }
 
     }
