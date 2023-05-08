@@ -15,6 +15,15 @@ Para el modelo de tipo list,podemos hace runa lista que nos traiga todas las fue
 
 Con la clase SpinnerNumberModel podemos hacer el spinner numerico pero podemos especificar de donde a donde iran los numeros y de cuanto en cuanto van ascendiendo o descendiendo.
 
+-----------------------------------------------------------------
+(v99) podemos cambiar el comportamiento que tienen por defecto los botones d eincrementar y disminuir de los spinner de java,osea,que el boton de subir lo que haga es disminuir y el de bajar aumente,para esto java no tiene una clase o funcion especifica,por lo que debemos crear nuestra propia clase interna.Como en principio vamos a hacer un spinner de numeros,entonces esta clase debera heredar de SpinnerNumberModel para aprovechar las caracteristcas de esta clase.
+
+Esta clase SpinnerNumberModel tiene dos metodos,getNextValue y getPreviousValue que me captura los valores del spinner, como estos metodos son heredados,los podemos sobreescribir para hacer que se comporten como necesitamos.Estos metodos nos devuelven un objeto de tipo Object,entonces al sobreescribirlos les indicamos que lo que devolveran sera un Object,y dentro del metodo le indicamos llamando al contructor padre que nos retorne el metodo contrario,osea en el next que nos devuelva el previo,y asi con el otro.
+
+____________________________________________________________________________
+
+clases internas anonimas, son clases internas pero sin nombre,es utilizar la clase que queremos instanciar,pero al poner new JSpinner(), dentro de los parametros instanciamos de una vez el objeto de la clase que vamos a usar y creamos alli mismo el codigo,esto ahorra codigo.
+
 */
 
 package graficos;
@@ -57,7 +66,27 @@ class LaminaSpinner extends JPanel {
 
         // spinner de tipo number,especificamos en donde comienza,el valor minimo,el
         // maximo y va de uno en uno
-        JSpinner control = new JSpinner(new SpinnerNumberModel(5, 0, 10, 1));
+        // JSpinner control = new JSpinner(new SpinnerNumberModel(5, 0, 10, 1));
+
+        // aqui utilizamos nuestra clase interna para instanciar un objeto de tipo
+        // MiModeloSpinner y crear el spinner de una vez
+        // JSpinner control = new JSpinner(new MiModeloSpinner());
+
+        // clase interna anonima,ahorra codigo,la clase interna es SpinnerNumberModel
+        // que esta dentro de JSpinner.
+        JSpinner control = new JSpinner(new SpinnerNumberModel(5, 0, 10, 1) {
+
+            // sobreescribimos los metodos heredados
+            public Object getNextValue() {
+
+                return super.getPreviousValue();
+            }
+
+            public Object getPreviousValue() {
+
+                return super.getNextValue();
+            }
+        });
 
         // objeto dimension para poder cambiar el tamaño del spinner
         Dimension d = new Dimension(200, 20);
@@ -65,4 +94,27 @@ class LaminaSpinner extends JPanel {
 
         add(control);
     }
+
+    // clase interna para cambiar el comportamiento por defecto de los botones del
+    // spinner(invertir el comportamiento)
+    // private class MiModeloSpinner extends SpinnerNumberModel {
+
+    // public MiModeloSpinner() {
+
+    // // llamamos al constructor padre
+    // super(5, 0, 10, 1);
+
+    // }
+
+    // // sobreescribimos los metodos heredados
+    // public Object getNextValue() {
+
+    // return super.getPreviousValue();
+    // }
+
+    // public Object getPreviousValue() {
+
+    // return super.getNextValue();
+    // }
+    // }
 }
