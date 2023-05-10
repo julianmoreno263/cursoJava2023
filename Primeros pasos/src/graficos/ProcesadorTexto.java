@@ -23,6 +23,9 @@ Y tambien debemos crear una clase interna para poner los elementos a la escucha 
 
 en la clase oyente,como los argumentos para el constructor de la clase Font no pueden ser fijos,creo variables para poder utilizarlas y asi establecer los valores especificos que quiera tener al poner a la escucha esos elementos.
 
+---------------------------------------------------------------------------
+(v106) hasta aqui ya tenemos la funcionalidad del editor de texto,pero tiene algunas falencias,por ejemplo si quiero desactivar la negrita o cursiva no lo hace, para manejar mejor los textos en un componente de tipo swing tenemos la clase StyledEditorKit,para esto vamos a crear este nuevo archivo con parte del codigo anterior.
+
 
 
  */
@@ -61,7 +64,7 @@ class LaminaProcesador extends JPanel {
 
     JTextPane miArea;
     JMenu fuente, estilo, tamaño;
-    Font letras;
+    Font letra;
 
     public LaminaProcesador() {
 
@@ -118,7 +121,7 @@ class LaminaProcesador extends JPanel {
             tamaño.add(itemMenu);
         }
 
-        // aqui usamos la clase oyente para poner el elemento de item creado a la
+        // aqui usamos la clase oyente para poner el elemento del item creado a la
         // escucha del evento
         itemMenu.addActionListener(new GestionaEventos(rotulo, tipoLetra, estilos, tam));
     }
@@ -129,12 +132,33 @@ class LaminaProcesador extends JPanel {
     // para el tamaño. Despues,como necesitamos almacenar en estas variables los
     // valores que establecimos en la clase padre(la lamina principal),osea por
     // ejemplo el tipo de letra Arial con un tamaño 12,etc,creamos en la clase
-    // interna oyente un constructor que reciba como argumentos un string "elemento"
+    // interna oyente un constructor que reciba como argumentos un string
+    // "itemPulsado"
     // para detectar que item se ha pulsado,otro string para almacenar el texto del
     // item pulsado en el tipo de fuente(arial,verdana o cursiva),y dos int para
     // almacenar el estilo y tamaño de letra.En si este constructor lo que hace es
     // detectar que item se ha pulsado.Dentro del constructor se establece a cual
-    // argumemnto corresponde el valor de cada variable.
+    // argumento corresponde el valor de cada variable. Como en la funcion vamos a
+    // usar el construcotr de la clase oyente y este constructor necesita que le
+    // pasemos estos parametros que vienen de la clase padre,asi es la forma de
+    // pasarselos,por medio de los argumentos de la funcion.
+
+    // lo ultimo que hay que hacer para nuestro editor,es indicarle cual menu se ha
+    // pulsado(fuente,estilo o tamaño) y dependiendo del menu pulsado que asi mismo
+    // cambie el texto pero que deje los demas estados como esten,osea,si tiene un
+    // tamaño 20 por ejemplo y queremos cambiar a Arial,pues que solo cambie a Arial
+    // y el tamaño lo deje como esta,para esto la variable miArea que es de tipo
+    // JTextPane tiene un metodo getFont() que devuelve un objeto de tipo Font,y con
+    // esto usamos la variable letra que creamos para capturar alli el tipo de letra
+    // que tiene el texto en el area en el momento,osea el texto del momento con su
+    // tipo de letra,estilo y tamaño.Y despues con el texto capturado,utilizamos
+    // otros metodos para ir sacando los diferentes valores de ese texto de tipo de
+    // letra,tamaño y estilo, de esta forma con la variable menu evaluo que tipo de
+    // letra se pulso y dependiendo de eso voy dejando los otros parametros de
+    // estilo y tamaño como los tiene en ese momento,asi creamos la funcionalidad de
+    // poder ir pulsando los diferentes items y que el texto cambie de acuerdo con
+    // ellos.
+
     private class GestionaEventos implements java.awt.event.ActionListener {
 
         String tipoTexto, menu;
@@ -150,6 +174,30 @@ class LaminaProcesador extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            // almaceno el tipo de letra que haya en el area de texto
+            letra = miArea.getFont();
+
+            if (menu == "Arial" || menu == "Courier" || menu == "Verdana") {
+
+                estiloLetra = letra.getStyle();
+                tamañoLetra = letra.getSize();
+            } else if (menu == "Negrita" || menu == "Cursiva") {
+
+                // if para evaluar si tiene tanto negrita como cursiva que sume ambos valores
+                if (letra.getStyle() == 1 || letra.getStyle() == 2) {
+
+                    estiloLetra = 3;
+                }
+
+                tipoTexto = letra.getFontName();
+                tamañoLetra = letra.getSize();
+            } else if (menu == "12" || menu == "16" || menu == "20" || menu == "24") {
+
+                tipoTexto = letra.getFontName();
+                estiloLetra = letra.getStyle();
+
+            }
 
             miArea.setFont(new Font(tipoTexto, estiloLetra, tamañoLetra));
 
