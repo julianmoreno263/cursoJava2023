@@ -26,7 +26,8 @@ en la clase oyente,como los argumentos para el constructor de la clase Font no p
 ---------------------------------------------------------------------------
 (v106) hasta aqui ya tenemos la funcionalidad del editor de texto,pero tiene algunas falencias,por ejemplo si quiero desactivar la negrita o cursiva no lo hace, para manejar mejor los textos en un componente de tipo swing tenemos la clase StyledEditorKit,para esto vamos a crear este nuevo archivo con parte del codigo anterior.
 
-
+-------------------------------------------------------------------------------------
+(v107) podemos ponerles iconos a los items del menu,para esto utilizamos el constructor de la clase JMenuItem que admite dos arguemntos,un texto y un objeto de tipo Icon,Icon es una interface.Dentro de las clases que implementan esta interfaz esta la clase ImageIcon,por lo que si pasamos un objeto de tipo ImageIcon tambien funciona,esta clase tiene sobrecarga de constructores,podemos usar el mas sencillo que solo pide como parametro la ruta del icono.Para no confundirme con las rutas de los iconos,en vsc simplemente voy a la imagen,click derecho y doy donde dice Copy Relative Path.
 
  */
 

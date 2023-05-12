@@ -4,6 +4,9 @@ si quiero hacer un submenu,el item del que se va a desprender ese submenu ya no 
 
 Para separar cada grupo de items puedo utilizar lo que en swing se denomina como separador,utilizando el metodo addSeparator de la clase JMenu(ver api).
 
+-------------------------------------------------------------------------------
+(v107) podemos ponerles iconos a los items del menu,para esto utilizamos el constructor de la clase JMenuItem que admite dos arguemntos,un texto y un objeto de tipo Icon,Icon es una interface.Dentro de las clases que implementan esta interfaz esta la clase ImageIcon,por lo que si pasamos un objeto de tipo ImageIcon tambien funciona,esta clase tiene sobrecarga de constructores,podemos usar el mas sencillo que solo pide como parametro la ruta del icono.Para no confundirme con las rutas de los iconos,en vsc simplemente voy a la imagen,click derecho y doy donde dice Copy Relative Path.
+
 
 
 
@@ -60,9 +63,12 @@ class LaminaMenu extends JPanel {
 
         // items para edicion,utilizo addSeparator para poner un separador(linea) entre
         // cada grupo que quiera separar
-        JMenuItem cortar = new JMenuItem("cortar");
-        JMenuItem copiar = new JMenuItem("copiar");
-        JMenuItem pegar = new JMenuItem("pegar");
+        JMenuItem cortar = new JMenuItem("cortar", new ImageIcon(
+                "Primeros pasos/src/graficos/img/cortar.jpg"));
+        JMenuItem copiar = new JMenuItem("copiar", new ImageIcon(
+                "Primeros pasos/src/graficos/img/icono-copiar.jpg"));
+        JMenuItem pegar = new JMenuItem("pegar", new ImageIcon(
+                "Primeros pasos/src/graficos/img/pegar.png"));
         edicion.add(cortar);
         edicion.add(copiar);
         edicion.add(pegar);
