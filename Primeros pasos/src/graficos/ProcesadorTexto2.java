@@ -28,6 +28,10 @@ Para nuestro caso,si queremos poner iconos para negrita y cursiva, en este archi
 
 2- usamos la clase JCheckBoxMenuItem para crear los items tipo check y los pongo a la escucha,la funcionalidad la copio de lo que habiamos echo antes utilizando la clase StyleEditorKit.En la funcion comento el codigo del else if de estilo porque ya no aplica, y asi ya creolos check para estos items de estilo,hago lo mismo con radio buttons para los tamaños. Pero para mi gusto dejo todo como estaba trabajando en la funcion con JMenuItem porque asi lo entiendo mas.
 
+------------------------------------------------------------------------------
+
+(v109) vamos a hacer un menu emergente con las opciones de negrita y cursiva,asi el usuario podra cambiar el estilo del texto ya sea desde el menu principal o desde este menu emergente.
+
 */
 
 package graficos;
@@ -114,6 +118,22 @@ class LaminaProcesador2 extends JPanel {
         // area de texto en la zona central de la lamina principal
         miArea = new JTextPane();
         add(miArea, BorderLayout.CENTER);
+
+        // ------------ menu emergente -----------------------
+        JPopupMenu emergente = new JPopupMenu();
+
+        // creamos los items para el menu,los ponemos a la escucha y los agregamos al
+        // area d etexto
+        JMenuItem negritaE = new JMenuItem("Negrita");
+        JMenuItem cursivaE = new JMenuItem("Cursiva");
+
+        negritaE.addActionListener(new StyledEditorKit.BoldAction());
+        cursivaE.addActionListener(new StyledEditorKit.ItalicAction());
+
+        emergente.add(negritaE);
+        emergente.add(cursivaE);
+
+        miArea.setComponentPopupMenu(emergente);
 
     }
 
