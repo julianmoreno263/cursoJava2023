@@ -32,6 +32,9 @@ Para nuestro caso,si queremos poner iconos para negrita y cursiva, en este archi
 
 (v109) vamos a hacer un menu emergente con las opciones de negrita y cursiva,asi el usuario podra cambiar el estilo del texto ya sea desde el menu principal o desde este menu emergente.
 
+-----------------------------------------------------------------------------
+(v110) vamos a ver como crear atajos de teclado, para esto debemos trabajar con el metodo setAccelerator(KeyStroke obj) de la clase JMenuItem, este metodo necesita que le pasemos un objeto de la clase KeyStroke.
+
 */
 
 package graficos;
