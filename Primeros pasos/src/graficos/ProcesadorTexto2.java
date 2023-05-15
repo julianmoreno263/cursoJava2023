@@ -32,6 +32,11 @@ Para nuestro caso,si queremos poner iconos para negrita y cursiva, en este archi
 
 (v109) vamos a hacer un menu emergente con las opciones de negrita y cursiva,asi el usuario podra cambiar el estilo del texto ya sea desde el menu principal o desde este menu emergente.
 
+-----------------------------------------------------------------------------------------
+(v112) vamos a crear una barra de herramientas en nuestro procesador de texto,lo crearemos a la izquierda.
+
+1- estara en la lamina principal,por lo que nos ubicamos en el contructor de la lamina.
+
 */
 
 package graficos;
@@ -134,6 +139,8 @@ class LaminaProcesador2 extends JPanel {
         emergente.add(cursivaE);
 
         miArea.setComponentPopupMenu(emergente);
+
+        // barra de herramientas
 
     }
 
