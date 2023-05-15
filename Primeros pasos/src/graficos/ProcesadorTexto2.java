@@ -35,6 +35,9 @@ Para nuestro caso,si queremos poner iconos para negrita y cursiva, en este archi
 -----------------------------------------------------------------------------
 (v110) vamos a ver como crear atajos de teclado, para esto debemos trabajar con el metodo setAccelerator(KeyStroke obj) de la clase JMenuItem, este metodo necesita que le pasemos un objeto de la clase KeyStroke.
 
+------------------------------------------------------------------------------
+(v111) vamos a ver como crear barras de herramientas, esto lo hacemos con la clase JToolBar y el metodo add(Action accion) al cual le pasamos una accion.
+
 */
 
 package graficos;
@@ -43,6 +46,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 
 import java.awt.*;
+import java.awt.event.*;
 
 public class ProcesadorTexto2 {
     public static void main(String[] args) {
@@ -161,9 +165,12 @@ class LaminaProcesador2 extends JPanel {
         } else if (menu == "estilo") {
             estilo.add(itemMenu);
             if (estilos == Font.BOLD) {
+                // aqui creo atajos de teclado para la negrita
+                itemMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
                 itemMenu.addActionListener(new StyledEditorKit.BoldAction());
             } else if (estilos == Font.ITALIC) {
-
+                // aqui creo atajos de teclado para la cursiva
+                itemMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
                 itemMenu.addActionListener(new StyledEditorKit.ItalicAction());
 
             }

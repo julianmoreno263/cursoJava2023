@@ -75,15 +75,15 @@ class PanelAction extends JPanel {
 
         // objetos de la clase oyente(acciones)
         AccionColor colorAmarillo = new AccionColor("Amarillo",
-                new ImageIcon("C:/Users/USER/Desktop/curso java 2023/Primeros pasos/src/graficos/amarilla.jpg"),
+                new ImageIcon("Primeros pasos/src/graficos/amarilla.jpg"),
                 Color.YELLOW);
 
         AccionColor colorAzul = new AccionColor("Azul",
-                new ImageIcon("C:/Users/USER/Desktop/curso java 2023/Primeros pasos/src/graficos/azul.png"),
+                new ImageIcon("Primeros pasos/src/graficos/azul.png"),
                 Color.BLUE);
 
         AccionColor colorRojo = new AccionColor("Rojo",
-                new ImageIcon("C:/Users/USER/Desktop/curso java 2023/Primeros pasos/src/graficos/rojo.jpg"),
+                new ImageIcon("Primeros pasos/src/graficos/rojo.jpg"),
                 Color.RED);
 
         // otra forma de crear los botones y agregarlos d euna vez a la lamina
