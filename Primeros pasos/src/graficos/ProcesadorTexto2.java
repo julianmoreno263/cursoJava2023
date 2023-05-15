@@ -36,6 +36,14 @@ Para nuestro caso,si queremos poner iconos para negrita y cursiva, en este archi
 (v112) vamos a crear una barra de herramientas en nuestro procesador de texto,lo crearemos a la izquierda.
 
 1- estara en la lamina principal,por lo que nos ubicamos en el contructor de la lamina.
+2- en principio tendra dos botones,uno para negrita y otro para cursiva.
+3-por defecto la barra pone los botones juntos horizontalmente, si queremos cambiar esta disposicion de los botones usamos el metodo setOrientation() de la clase JToolBar.(ver API). este metodo requiere un argumento de tipo int que es el valor de horizontal(0) o vertical(1).
+4-podemos hacer otra funcionalidad que nos permita subrayar un texto,la clase StyledEditorKit tiene una clase llamada UnderlineAction,esta nos permite subrayar un texto.
+5-podemos hacer mas botones para cambiar el color de un texto,esto con la clase ForegroundAction de StyledEditorKit. El constructor de esta clase pide un string y un objeto de tipo Color.(ver API).
+6-ponemos en la barra 4 botones mas para la alineacion del texto(centrado,justificado,izquierda,derecha), esto lo hacemos con la clase AligmentAction de StyledEditorKit.Esta clase pide un string para descripcion de la accion y un int que sera el valor de cada posicion,en la API no establece si por ejemplo la izquierda vale 1 o 2,etc,no dice,solo dice que este parametro int debe ser >=0, por lo que toca ir probando,por ejemplo a la izquierda le ponemos 0,a la derecha 1,etc,y dependiendo como salga el texto alineado vamos cambiando esos valores.Pero izquierda es 0,centro es 1,derecha es 2 y justificado es 3.(ver API).
+
+---------------------------------------------------------------------------------------------
+(v114) listo,ya esta nuestra barra,pero hay mucho codigo,asi que debemos optimizarlo,podemos crear una funcion para mejorar este codigo.
 
 */
 
@@ -43,7 +51,6 @@ package graficos;
 
 import javax.swing.*;
 import javax.swing.text.*;
-
 import java.awt.*;
 
 public class ProcesadorTexto2 {
@@ -75,6 +82,9 @@ class LaminaProcesador2 extends JPanel {
     JTextPane miArea;
     JMenu fuente, estilo, tamaño;
     Font letra;
+    JButton negritaBarra, cursivaBarra, subrayadoBarra, amarilloBarra, azulBarra, rojoBarra, izquierdoBarra,
+            derechoBarra, centroBarra, justificadoBarra;
+    JToolBar barra;
 
     public LaminaProcesador2() {
 
@@ -140,8 +150,103 @@ class LaminaProcesador2 extends JPanel {
 
         miArea.setComponentPopupMenu(emergente);
 
+        // -------------------------------------------------------------
         // barra de herramientas
+        // JToolBar barra = new JToolBar();
 
+        // botones para la barra,los ponemos a la escucha con addActionListener y la
+        // clase StyledEditorKit.
+        // JButton negritaBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/negrita.jpg"));
+        // JButton cursivaBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/cursiva.png"));
+        // JButton subrayadoBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/subrayado.png"));
+        // JButton amarilloBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/amarilla.jpg"));
+        // JButton azulBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/azul.png"));
+        // JButton rojoBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/rojo.jpg"));
+        // JButton izquierdoBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/izquierda.png"));
+        // JButton derechoBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/derecha.png"));
+        // JButton centroBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/centrado.png"));
+        // JButton justificadoBarra = new JButton(new ImageIcon("Primeros
+        // pasos/src/graficos/img/justificado.png"));
+
+        // negritaBarra.addActionListener(new StyledEditorKit.BoldAction());
+        // cursivaBarra.addActionListener(new StyledEditorKit.ItalicAction());
+        // subrayadoBarra.addActionListener(new StyledEditorKit.UnderlineAction());
+        // amarilloBarra.addActionListener(new
+        // StyledEditorKit.ForegroundAction("texto-amarillo", Color.YELLOW));
+        // azulBarra.addActionListener(new
+        // StyledEditorKit.ForegroundAction("texto-azul", Color.BLUE));
+        // rojoBarra.addActionListener(new
+        // StyledEditorKit.ForegroundAction("texto-rojo", Color.RED));
+        // izquierdoBarra.addActionListener(new
+        // StyledEditorKit.AlignmentAction("texto-izquierda", 0));
+        // centroBarra.addActionListener(new
+        // StyledEditorKit.AlignmentAction("texto-centro", 1));
+        // derechoBarra.addActionListener(new
+        // StyledEditorKit.AlignmentAction("texto-derecha", 2));
+        // justificadoBarra.addActionListener(new
+        // StyledEditorKit.AlignmentAction("texto-justificado", 3));
+
+        // barra.add(negritaBarra);
+        // barra.add(cursivaBarra);
+        // barra.add(subrayadoBarra);
+        // barra.add(amarilloBarra);
+        // barra.add(azulBarra);
+        // barra.add(rojoBarra);
+        // barra.add(izquierdoBarra);
+        // barra.add(derechoBarra);
+        // barra.add(centroBarra);
+        // barra.add(justificadoBarra);
+
+        barra = new JToolBar();
+        creaBarra("Primeros pasos/src/graficos/img/negrita.jpg").addActionListener(new StyledEditorKit.BoldAction());
+        creaBarra("Primeros pasos/src/graficos/img/cursiva.png").addActionListener(new StyledEditorKit.ItalicAction());
+        creaBarra("Primeros pasos/src/graficos/img/subrayado.png")
+                .addActionListener(new StyledEditorKit.UnderlineAction());
+
+        barra.addSeparator();
+        creaBarra("Primeros pasos/src/graficos/img/amarilla.jpg")
+                .addActionListener(new StyledEditorKit.ForegroundAction("texto-amarillo", Color.YELLOW));
+        creaBarra("Primeros pasos/src/graficos/img/azul.png")
+                .addActionListener(new StyledEditorKit.ForegroundAction("texto-amarillo", Color.BLUE));
+        creaBarra("Primeros pasos/src/graficos/img/rojo.jpg")
+                .addActionListener(new StyledEditorKit.ForegroundAction("texto-amarillo", Color.RED));
+
+        barra.addSeparator();
+        creaBarra("Primeros pasos/src/graficos/img/izquierda.png")
+                .addActionListener(new StyledEditorKit.AlignmentAction("texto-izquierda", 0));
+        creaBarra("Primeros pasos/src/graficos/img/centrado.png")
+                .addActionListener(new StyledEditorKit.AlignmentAction("texto-centrado", 1));
+        creaBarra("Primeros pasos/src/graficos/img/derecha.png")
+                .addActionListener(new StyledEditorKit.AlignmentAction("texto-derecha", 2));
+        creaBarra("Primeros pasos/src/graficos/img/justificado.png")
+                .addActionListener(new StyledEditorKit.AlignmentAction("texto-justificado", 3));
+
+        barra.setOrientation(1);
+
+        // agregamos la barra a la lamina en la zona izquierda
+        add(barra, BorderLayout.WEST);
+
+    }
+
+    // funcion para crear los botones de la barra de herramientas para abreviar asi
+    // el codigo anterior,como nos devolvera un objeto de tipo JButton podemos
+    // utilizar con esta funcion el metodo addActionListener para ir creando los
+    // botones y en la misma linea ponerlos a la escucha.
+
+    public JButton creaBarra(String ruta) {
+
+        JButton boton = new JButton(new ImageIcon(ruta));
+        barra.add(boton);
+        return boton;
     }
 
     // funcion que construye los items del menu y pone a la escucha esos elementos
