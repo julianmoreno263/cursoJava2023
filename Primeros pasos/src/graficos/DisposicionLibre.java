@@ -23,6 +23,13 @@ En la interfaz LayoutManager utilizaremos el metodo layoutContainer el cual nos 
 
 Esta es la verdadera utilidad de usar una disposicion libre,crear una clase que haga el posicionamiento de los elementos.
 
+--------------------------------------------------------
+(v120) podemos poner estos elementos que creamos en el centro del contenedor,para eso debemos saber el ancho del contenedor con el metodo getWidth() de la clase Container.
+
+1- la variable x la declaro pero no la inicio,la variable y la dejo como esta.
+2- capturo el ancho con getWidth() y despues este ancho lo uso para saber el punto central con la variable x.
+3- despues en setBounds le digo que el primer elemento debe estar en la posicion x-100,100 es el ancho del label,entonces a x le resto esos 100 para que se posicione bien y no salga corrido a la derecha.
+
 
 */
 
@@ -80,6 +87,7 @@ class LaminaLibre extends JPanel {
         JLabel nombre = new JLabel("Nombre: ");
         JLabel apellido = new JLabel("Apellido: ");
         JLabel edad = new JLabel("Edad: ");
+        JLabel telefono = new JLabel("Teléfono: ");
 
         // nombre.setBounds(50, 50, 100, 20);
         // apellido.setBounds(50, 150, 100, 20);
@@ -87,6 +95,7 @@ class LaminaLibre extends JPanel {
         JTextField cuadroNombre = new JTextField();
         JTextField cuadroApellido = new JTextField();
         JTextField cuadroEdad = new JTextField();
+        JTextField cuadroTelefono = new JTextField();
 
         // cuadroNombre.setBounds(120, 50, 100, 20);
         // cuadroApellido.setBounds(120, 150, 100, 20);
@@ -97,6 +106,8 @@ class LaminaLibre extends JPanel {
         add(cuadroApellido);
         add(edad);
         add(cuadroEdad);
+        add(telefono);
+        add(cuadroTelefono);
 
     }
 }
@@ -110,7 +121,7 @@ class LaminaLibre extends JPanel {
 // porque es algo abstracto,pero tiene logica.
 class layoutPropio implements LayoutManager {
 
-    int x = 20;
+    int x;
     int y = 20;
     int contador = 0;
 
@@ -141,16 +152,18 @@ class layoutPropio implements LayoutManager {
     @Override
     public void layoutContainer(Container parent) {
 
+        int d = parent.getWidth();
+        x = d / 2;
         int n = parent.getComponentCount();
 
         for (int i = 0; i < n; i++) {
             contador++;
             Component c = parent.getComponent(i);
-            c.setBounds(x, y, 100, 20);
+            c.setBounds(x - 100, y, 100, 20);
             x += 100;
 
             if (contador % 2 == 0) {
-                x = 20;
+                x = d / 2;
                 y += 40;
             }
 
