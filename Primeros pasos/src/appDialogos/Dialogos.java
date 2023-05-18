@@ -8,7 +8,7 @@ Esta practica la haremos con modulos,osea hacer varios archivos para cada clase 
 
 2- el marco tendra una lamina con gridLayout,entonces la creamos en la clase del marco.
 
-3- debemos crear una clase que cree las cajas de tipo BoxLayout para poner esas cajas en cada celda de la grilla,debemos ver que tienen en comun esas cajas,el titulo y que tienen radio buttons.
+3- debemos crear una clase que cree las cajas de tipo BoxLayout para poner esas cajas en cada celda de la grilla,debemos ver que tienen en comun esas cajas,el titulo y que tienen radio buttons. Esta clase sera el archivo que creamos para la lamina(osea otra lamina), y se encargara de construir las cajas de tipo BoxLayout.
 
 */
 
