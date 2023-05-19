@@ -21,7 +21,7 @@ class MarcoDialogos extends JFrame {
 
     // variables para objetos de caja Mensaje
     private String cadenaMensaje = "Mensaje";
-    private Icon iconoMensaje = new ImageIcon("Primeros pasos/src/appDialogos/img/cuadro_azul.png");
+    private Icon iconoMensaje = new ImageIcon("Ejercicios/appDialogos/img/cuadro_azul.png");
     private Object objetoMensaje = new Date();
     private Component componenteMensaje = new LaminaEjemplo();
 
@@ -179,9 +179,9 @@ class MarcoDialogos extends JFrame {
             return new String[] { "Amarillo", "Azul", "Rojo" };
         } else if (s.equals("Icon[]")) {
 
-            return new Object[] { new ImageIcon("Primeros pasos/src/appDialogos/img/cuadro_amarillo.png"),
-                    new ImageIcon("Primeros pasos/src/appDialogos/img/cuadro_azul.png"),
-                    new ImageIcon("Primeros pasos/src/appDialogos/img/cuadro_rojo.png") };
+            return new Object[] { new ImageIcon("Ejercicios/appDialogos/img/cuadro_amarillo.png"),
+                    new ImageIcon("Ejercicios/appDialogos/img/cuadro_azul.png"),
+                    new ImageIcon("Ejercicios/appDialogos/img/cuadro_rojo.png") };
         } else if (s.equals("Object[]")) {
 
             return new Object[] { cadenaMensaje, iconoMensaje, componenteMensaje, objetoMensaje };
