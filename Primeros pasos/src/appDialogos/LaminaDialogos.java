@@ -8,7 +8,7 @@
 
 -------------------------------------------------------------
 (v126) ya creada la parte grafica,vamos a comenzar a dar funcionaliodad,comenzamos con el boton de mostrar,para que cuando lo pulsemos nos saque la opcion seleccionada de las cajas.Para esto hacemos una funcion aqui en la lamina que crea las cajas con los botones.Esta funcion sera de tipo String porque debe devolverme los strings que haya en las cajas.
- */
+*/
 
 package appDialogos;
 
