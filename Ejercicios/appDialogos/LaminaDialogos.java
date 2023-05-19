@@ -13,7 +13,6 @@
 package appDialogos;
 
 import javax.swing.*;
-import java.awt.*;
 
 // lamina
 class LaminaDialogos extends JPanel {
