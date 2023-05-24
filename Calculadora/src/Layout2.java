@@ -1,3 +1,4 @@
+package src;
 
 /*(v137) Vamos a ver como se empaqueta una app de java para poder distribuirla por red de forma mas facil,una app generalmente esta echa de varios archivos,por lo que para enviarla por red es mejor empaquetarla,osea comprimirla en un archivo con extension .jar y asi se puede enviar mas facil por red.Para esto se empaqueta todo el proyecto.
 
@@ -6,6 +7,16 @@ NOTA: recordar que para generar un nuevo proyecto en vsc y que este genere autom
 EN VSC PARA GENERAR EL ARCHIVO .JAR VOY AL PANEL IZQUIERDO ABAJO,JAVA PROJECTS Y DOY CLICK EN LA FLECHA -> QUE INDICA EXPORT JAR Y HAY ME PREGUNTA CUAL ES LA CLASE MAIN DEL PROYECTO,LA SELECCIONO Y LISTO,GENERA EL ARCHIVO.
 
 se genera un archivo .jar,este se puede descomprimir como un archivo zip,simplemente se da click derecho y se elige donde extraer los archivos,apareceran archivos .class.
+
+------------------------------------------------------------
+(v138) vamos a ver como se firman digitalmente los archivos .jar que enviamos hacia la red, la firma de archivos es una medidad de seguridad que le indica al usuario que va a recibir nuestro programa java que este es confiable,a veces el programa en java para ejecutarse debe poder acceder a archivos del ordenador del usuario donde va a correr, por defecto el archivo .jar no tiene permisoso para acceder a recursos de los pcs donde se va a ejecutar por seguridad,asi que nosotros como programadores debemos firmar los archivos .jar que enviamos para que los usuarios sepan que es confiable,esto lo hacemos con una firma digital la cual en principio tiene informacion sobre nombre del programador,organizacion,departamento,ciudad,pais.
+
+Para firmar el .jar se necesitan dos cosas:
+
+1- Crear la firma digital con la herramienta keytool.
+2- Firmar la aplicacion .jar con el certificado generado,esto lo hacemos con la herramienta jarsigner.
+
+Estas dos herramientas vienen dentro del jdk. Para ver como firmar una aplicacion vamos a crear un nuevo proyecto y lo transformamos en un applet,sera una aplicacion que acceda a imagenes.
 
 
  */
