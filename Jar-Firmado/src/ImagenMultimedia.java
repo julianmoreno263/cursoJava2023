@@ -34,6 +34,15 @@ jotavalida es el alias que creamos,verbose es para que nos muestre lo que va hac
 
 3- listo,ahora puedo nuevamente cortar y pegar el .jar en la carpeta bin del proyecto.Ya lo puedo compartir o enviar por red y la persona que lo vaya a abrir puede confiar por la firma que tiene,le saldra un mensaje de advertencia antes de abrirlo.
 
+--------------------------------------------------------------------
+(v140) hay que aclarar que esta firma digital que hacemos nosotros es solo para probar que funciona al compartir el archivo .jar,osea no es una firma digital valida,porque para tener cada uno nuestra firma digital debemos solicitarla en la entidad correspondiente que la expide y esa si es legal,nosotros para esta prueba de ver como se crea y se firma un archivo.jar ponemos datos que pudieran ser falsos,entonces la firma digital legal hay que solicitarla.
+
+Ahora,vamos a ver como hacer ejecutables java,osea como crear un archivo java que sea ejecutable sin necesidad de abrirlo por medio de un editor de codigo, pues java es multiplataforma por lo que los archivos ejecutables deben estar en capacidad de ejecutarse independiente del so, en windows los ejecutables son .exe,en linux .deb,en Macintosh son .app,y en solaris son .elf.Entonces los archivos .jar ejecutables son los que hacen que java sea multiplataforma.
+
+Vamos a trabajar de nuevo con la calculadora y volverla ejecutable para que si se la damos a alguien,esta persona solamente debe tener el jdk instalado para poder ejecutar el programa,sin necesidad de editores.
+
+1-creamos un nuevo proyecto y lo llamamos Calculadora-Ejecutable y alli ponemos nuestra calculadora.
+
 
  */
 
