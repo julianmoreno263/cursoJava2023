@@ -13,6 +13,9 @@ En general, ya sea en eclipse o e vsc hay que hacer estos pasos:
 4- La herramienta de debugger nos sirve para ir localizando la linea o lineas del posible error en el codigo,pero de todas formas debemos saber programar en java para ver en si que genera el error,como en este ejercicio.Cuando activamos el debugger aparece un cuadro arriba con varias flechas,la primera Step Over es para ir saltando a la siguiente linea desde el punto de interrupcion y asi ir probando linea a linea el programa.
 
 5-el debugger se va ejecutando en un archivo aparte,para salir del debugger damos click en el cuadro rojo de la barra que sale arriba,asi cerramos la sesion de debugger,para quitar el punto de interrupcion simplemente le damos click encima. De todas formas cuando se hace debugger es solo para ver en que linea hay un error,pero debemos ir viendo la logica de ejecucion del programa y como deberia de ir corriendo,si estamos en eun bucle debemos ir viendo como funciona ese bucle, cuantas veces se debe de ir recorriendo,etc.
+
+------------------------------------------------------------
+(v151) hay mas opciones de debugger, el boton Step Into sirve para que en el caso de tener una aplicacion formada de varios archivos, este boton nos ubique en el archivo que tiene el codigo al cual apunta el unto de interrupcion.
  */
 
 package excepciones1;

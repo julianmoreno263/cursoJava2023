@@ -4,7 +4,8 @@
     "java.debug.settings.onBuildFailureProceed": true,
     "java.project.sourcePaths": [
         "Primeros pasos/src",
+        "Excepciones/src",
         "Calculadora",
-        "Excepciones/src"
+        "AccesoArchivos/src"
     ]
 }
