@@ -25,6 +25,17 @@ NOTA: EL TEXTO QUE SALE EN CONSOLA DE LOS RESULTADOS ES LA EJECUCION DEL METODO 
 El método toString te devuelve una representación en cadena de texto del objeto sobre el cual lo invoques. Es muy útil cuando quieres devolver un resumen del estado interno del objeto.
 
 
+------------------------------------------------------------------------
+(v158) vamos a ver como se trabaja la serializacion cuando hay cambio de versiones en nuestro programa java.Cuando queremos enviar por medio de nuestro programa java un objeto serializado a otro pc por la red, ese otro pc debe tener la misma version de nuestro programa java,osea la copia que ese otro pc receptor debe tener debe ser identica. Cuando creamos un programa java, aunque no lo veamos,ese programa tiene un numero identificativo unico,como un id unico,ese numero se denomina SHA, el compilador java analiza todas las clases del programa,etc y crea esa huella.Ese numero SHA es un numero de 20 bytes denominado serialVersionUID. Tanto el emisor del objeto serializado como el pc receptor deben tener ese mismo SHA, y si es el mismo se puede enviar el objeto sin problemas.
+
+Ahora, si nuestro programa sufre una actualizacion,automaticamente cambia el numero SHA, por lo que si la copia del programa receptor no tiene el mismo numero,cuando el emisor intente enviar un objeto serializado,el receptor no lo podra leer.
+
+Para solucionar esto, podemos hacer nuestro propio numero serialVersionUID, creando una constante static(que sera de la propia clase) y asi ese numero no cambia,por lo que si hacemos una actualizacion del programa,aunque el receptor no tenga esa actualizacion,podra seguir leyendo los objetos serializados que le enviemos.
+
+La constante que se debe escribir es de tipo Long,asi: private static final long serialVersionUID=1L;
+
+Y se pone en la clase que implementa la interfaz Serializable y las que hereden de esta clase.De esta forma,aunque se hagan cambios en el emisor,el receptor puede seguir leyendo los objetos serializables que se le envien,logico,si se cambia ese numero en el receptor,el emisor tambien debe hacer el cambio para que ambos tengan el mismo numero.Lo importante es que ambos tengan el mismo numero para poder trabajar con los objetos serializados.
+
 
  */
 
@@ -50,7 +61,7 @@ public class Serializando {
             // serializable,escribimos el objeto array en el flujo de datos y cerramos el
             // flujo
             ObjectOutputStream archivoEscrito = new ObjectOutputStream(new FileOutputStream(
-                    "C:/Users/USER/Desktop/cursoJava2023-master/objetosSerializados/empleado.dat"));
+                    "objetosSerializados/empleado.dat"));
 
             archivoEscrito.writeObject(personal);
             archivoEscrito.close();
@@ -60,7 +71,7 @@ public class Serializando {
             // imprimimos en consola,lo debemos guardar en un array tipo Empleado pues el
             // array empleados[] es de ese tipo,y por ultimo lo recorremos con un for-each.
             ObjectInputStream archivoLeido = new ObjectInputStream(
-                    new FileInputStream("C:/Users/USER/Desktop/cursoJava2023-master/objetosSerializados/empleado.dat"));
+                    new FileInputStream("objetosSerializados/empleado.dat"));
 
             Empleado arrayRecuperado[] = (Empleado[]) archivoLeido.readObject();
             archivoLeido.close();
@@ -83,6 +94,9 @@ class Empleado implements Serializable {
     String nombre;
     double sueldo;
     Date fechaContrato;
+
+    // constante serialVersionUID para tener un numero SHA de la version constante
+    private static final long serialVersionUID = 1L;
 
     public Empleado(String n, double s, int agno, int mes, int dia) {
         nombre = n;
@@ -131,6 +145,9 @@ class Empleado implements Serializable {
 
 class Administrador extends Empleado {
     private double incentivo;
+
+    // constante serialVersionUID para tener un numero SHA de la version constante
+    private static final long serialVersionUID = 1L;
 
     public Administrador(String n, double s, int agno, int mes, int dia) {
         super(n, s, agno, mes, dia);
