@@ -6,6 +6,7 @@
         "Primeros pasos/src",
         "Excepciones/src",
         "Calculadora",
-        "AccesoArchivos/src"
+        "AccesoArchivos/src",
+        "ProgramacionGenerica/src"
     ]
 }

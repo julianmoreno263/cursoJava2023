@@ -1,0 +1,623 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "UsoEmpleado",
+            "request": "launch",
+            "mainClass": "arrayList.UsoEmpleado",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "EliminarArchivo",
+            "request": "launch",
+            "mainClass": "archivosDirectorios.EliminarArchivo",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Creando",
+            "request": "launch",
+            "mainClass": "archivosDirectorios.Creando",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "AccesoArchivos",
+            "request": "launch",
+            "mainClass": "archivosDirectorios.AccesoArchivos",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "PruebasRutas",
+            "request": "launch",
+            "mainClass": "archivosDirectorios.PruebasRutas",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "EscribirArchivo",
+            "request": "launch",
+            "mainClass": "escribiendo.EscribirArchivo",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Aleatorios",
+            "request": "launch",
+            "mainClass": "excepciones1.Aleatorios",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "AreasPeso",
+            "request": "launch",
+            "mainClass": "excepciones1.AreasPeso",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "CompruebaEmail",
+            "request": "launch",
+            "mainClass": "excepciones1.CompruebaEmail",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "EntradaDatos",
+            "request": "launch",
+            "mainClass": "excepciones1.EntradaDatos",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Fallos",
+            "request": "launch",
+            "mainClass": "excepciones1.Fallos",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "LeerImagen",
+            "request": "launch",
+            "mainClass": "excepciones1.LeerImagen",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "VariasExcepciones",
+            "request": "launch",
+            "mainClass": "excepciones1.VariasExcepciones",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "fundamentos.App",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Arrays",
+            "request": "launch",
+            "mainClass": "fundamentos.Arrays",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Arrays2",
+            "request": "launch",
+            "mainClass": "fundamentos.Arrays2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Arrays3",
+            "request": "launch",
+            "mainClass": "fundamentos.Arrays3",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Arrays4",
+            "request": "launch",
+            "mainClass": "fundamentos.Arrays4",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "BucleDoWhile",
+            "request": "launch",
+            "mainClass": "fundamentos.BucleDoWhile",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "BucleFor",
+            "request": "launch",
+            "mainClass": "fundamentos.BucleFor",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "BucleFor2",
+            "request": "launch",
+            "mainClass": "fundamentos.BucleFor2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "BucleForEach",
+            "request": "launch",
+            "mainClass": "fundamentos.BucleForEach",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "BucleForEach2",
+            "request": "launch",
+            "mainClass": "fundamentos.BucleForEach2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "BucleWhile",
+            "request": "launch",
+            "mainClass": "fundamentos.BucleWhile",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "CalculosMath",
+            "request": "launch",
+            "mainClass": "fundamentos.CalculosMath",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "CondicionalIf",
+            "request": "launch",
+            "mainClass": "fundamentos.CondicionalIf",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "CondicionalSwitch",
+            "request": "launch",
+            "mainClass": "fundamentos.CondicionalSwitch",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "DeclaracionesOperadores",
+            "request": "launch",
+            "mainClass": "fundamentos.DeclaracionesOperadores",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "EntradaEjemplo1",
+            "request": "launch",
+            "mainClass": "fundamentos.EntradaEjemplo1",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "EntradaEjemplo2",
+            "request": "launch",
+            "mainClass": "fundamentos.EntradaEjemplo2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "ManipulaCadenas",
+            "request": "launch",
+            "mainClass": "fundamentos.ManipulaCadenas",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "PrimeraClase",
+            "request": "launch",
+            "mainClass": "fundamentos.PrimeraClase",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Pruebas",
+            "request": "launch",
+            "mainClass": "fundamentos.Pruebas",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "UsoTallas",
+            "request": "launch",
+            "mainClass": "fundamentos.UsoTallas",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Variables",
+            "request": "launch",
+            "mainClass": "fundamentos.Variables",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "WhileAdivina",
+            "request": "launch",
+            "mainClass": "fundamentos.WhileAdivina",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "AreaTexto",
+            "request": "launch",
+            "mainClass": "graficos.AreaTexto",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "AreaTexto2",
+            "request": "launch",
+            "mainClass": "graficos.AreaTexto2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "BarraHerramientas",
+            "request": "launch",
+            "mainClass": "graficos.BarraHerramientas",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "CheckBox",
+            "request": "launch",
+            "mainClass": "graficos.CheckBox",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "ComboBox",
+            "request": "launch",
+            "mainClass": "graficos.ComboBox",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "CreandoMarcoCentrado",
+            "request": "launch",
+            "mainClass": "graficos.CreandoMarcoCentrado",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "CreandoMarcos",
+            "request": "launch",
+            "mainClass": "graficos.CreandoMarcos",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "DisposicionBox",
+            "request": "launch",
+            "mainClass": "graficos.DisposicionBox",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "DisposicionLibre",
+            "request": "launch",
+            "mainClass": "graficos.DisposicionLibre",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "DisposicionMuelle",
+            "request": "launch",
+            "mainClass": "graficos.DisposicionMuelle",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "EscribiendoEnMarco",
+            "request": "launch",
+            "mainClass": "graficos.EscribiendoEnMarco",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos",
+            "request": "launch",
+            "mainClass": "graficos.Eventos",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos10",
+            "request": "launch",
+            "mainClass": "graficos.Eventos10",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos2",
+            "request": "launch",
+            "mainClass": "graficos.Eventos2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos3",
+            "request": "launch",
+            "mainClass": "graficos.Eventos3",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos4",
+            "request": "launch",
+            "mainClass": "graficos.Eventos4",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos5",
+            "request": "launch",
+            "mainClass": "graficos.Eventos5",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos6",
+            "request": "launch",
+            "mainClass": "graficos.Eventos6",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos7",
+            "request": "launch",
+            "mainClass": "graficos.Eventos7",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos8",
+            "request": "launch",
+            "mainClass": "graficos.Eventos8",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Eventos9",
+            "request": "launch",
+            "mainClass": "graficos.Eventos9",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "JSlider1",
+            "request": "launch",
+            "mainClass": "graficos.JSlider1",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "JSpinner1",
+            "request": "launch",
+            "mainClass": "graficos.JSpinner1",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Layout1",
+            "request": "launch",
+            "mainClass": "graficos.Layout1",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Layout2",
+            "request": "launch",
+            "mainClass": "graficos.Layout2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "MenuEmergente",
+            "request": "launch",
+            "mainClass": "graficos.MenuEmergente",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Menus1",
+            "request": "launch",
+            "mainClass": "graficos.Menus1",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "ProcesadorTexto",
+            "request": "launch",
+            "mainClass": "graficos.ProcesadorTexto",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "ProcesadorTexto2",
+            "request": "launch",
+            "mainClass": "graficos.ProcesadorTexto2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "PruebaDibujo",
+            "request": "launch",
+            "mainClass": "graficos.PruebaDibujo",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "PruebaJTextField",
+            "request": "launch",
+            "mainClass": "graficos.PruebaJTextField",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "PruebaJtextField2",
+            "request": "launch",
+            "mainClass": "graficos.PruebaJtextField2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Pruebas(1)",
+            "request": "launch",
+            "mainClass": "graficos.Pruebas",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "RadioButton",
+            "request": "launch",
+            "mainClass": "graficos.RadioButton",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "RadioButton2",
+            "request": "launch",
+            "mainClass": "graficos.RadioButton2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "SwingTexto",
+            "request": "launch",
+            "mainClass": "graficos.SwingTexto",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "TrabajandoColores",
+            "request": "launch",
+            "mainClass": "graficos.TrabajandoColores",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "TrabajandoFuentes",
+            "request": "launch",
+            "mainClass": "graficos.TrabajandoFuentes",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "TrabajandoImagenes",
+            "request": "launch",
+            "mainClass": "graficos.TrabajandoImagenes",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "VentanasEmergentes",
+            "request": "launch",
+            "mainClass": "graficos.VentanasEmergentes",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "LecturaEscritura",
+            "request": "launch",
+            "mainClass": "leerEscribirBytes.LecturaEscritura",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "AccesoArchivo",
+            "request": "launch",
+            "mainClass": "leyendo.AccesoArchivo",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Clase2",
+            "request": "launch",
+            "mainClass": "poo.Clase2",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "ClaseInternaTemporizador",
+            "request": "launch",
+            "mainClass": "poo.ClaseInternaTemporizador",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "PruebaTemporizador",
+            "request": "launch",
+            "mainClass": "poo.PruebaTemporizador",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "PruebasConstantes",
+            "request": "launch",
+            "mainClass": "poo.PruebasConstantes",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "UsoEmpleado",
+            "request": "launch",
+            "mainClass": "poo.UsoEmpleado",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "UsoPersona",
+            "request": "launch",
+            "mainClass": "poo.UsoPersona",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "UsoVehiculo",
+            "request": "launch",
+            "mainClass": "poo.UsoVehiculo",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Serializando",
+            "request": "launch",
+            "mainClass": "serializacion.Serializando",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Layout2(1)",
+            "request": "launch",
+            "mainClass": "src.Layout2",
+            "projectName": "cursoJava2023-master_e635572a"
+        }
+    ]
+}
