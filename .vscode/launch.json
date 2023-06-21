@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MetodosGenericos",
+            "request": "launch",
+            "mainClass": "clasesPropias.MetodosGenericos",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "UsoPareja",
+            "request": "launch",
+            "mainClass": "clasesPropias.UsoPareja",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
             "name": "UsoArrayList",
             "request": "launch",
             "mainClass": "arrayList.UsoArrayList",
