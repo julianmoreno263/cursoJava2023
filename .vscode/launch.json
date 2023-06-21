@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UsoArrayList",
+            "request": "launch",
+            "mainClass": "arrayList.UsoArrayList",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "UsoEmpleado",
+            "request": "launch",
+            "mainClass": "arrayList.UsoEmpleado",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
             "name": "UsoEmpleado",
             "request": "launch",
             "mainClass": "arrayList.UsoEmpleado",

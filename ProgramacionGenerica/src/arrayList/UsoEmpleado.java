@@ -20,6 +20,15 @@ NOTA: PARA RECORRER MAS FACIL UN ARRAYLIST O CUALQUIER ARRAY UTILIZAMOS EL FOREA
 
 Por ultimo,si me siento mas comodo manejando sintaxis de arrays normales,pero necesito crear un array que sea dinamico y no este restringuido al numero de elementos,puedo crear una lista y esta lista la almaceno en un array normal y lo trabajo como array normal,es pasar los datos del ArrayList a un array normal, para esto uso la funcion toArray().(ver video al final).
 
+----------------------------------------------------
+(v163) vamos a ver como se itera un ArrayList sin utilizar los bucles normales for o foreach, para esto debemos usar el metodo iterator() el cual devuelve un objeto de tipo iterator<E>, si damos click en este objeto(en la API), vemos que en si es una interfaz llamada iterator<E> y tiene 3 metodos para manipular las listas de los ArrayList y recorrerlos,hasNext(),next() y remove().Entonces para recorrer ese ArrayList con un iterador se hace asi:
+
+1- se crea un objeto de tipo Iterator<tipo de objeto> que sera el que va a ir recorriendo el array list,se le especifica el tipo de objeto que va a recorrer.
+
+2- se le pone un nombre y con este objeto se usa el metodo iterator() de la clase ArrayList.Para usar la interfaz Iterator se debe de importar el paquete java.util.(ver API).
+
+3- ya con la informacion de la lista almacenada en este objeto,con un bucle while y usando los metodos de esa interfaz,lo recorro para mostrar los datos.
+
 
 
  */
@@ -52,13 +61,23 @@ public class UsoEmpleado {
         // aqui cierro el ArrayList para optimizar recursos
         arrayEmpleados.trimToSize();
 
-        for (Empleado empleado : arrayEmpleados) {
+        // aqui recorro el array list con un for-each normal
+        // for (Empleado empleado : arrayEmpleados) {
 
-            System.out.println(empleado.dameDatos());
+        // System.out.println(empleado.dameDatos());
+        // }
+
+        // aqui recorro el array list con un iterador
+        Iterator<Empleado> miIterador = arrayEmpleados.iterator();
+
+        while (miIterador.hasNext()) {
+
+            System.out.println(miIterador.next().dameDatos());
         }
 
-        // asi capturo un elemento de una posicion especifica
-        System.out.println("Datos del empleado posicion 3: " + arrayEmpleados.get(2).dameDatos());
+        // // asi capturo un elemento de una posicion especifica
+        // System.out.println("Datos del empleado posicion 3: " +
+        // arrayEmpleados.get(2).dameDatos());
 
     }
 }
