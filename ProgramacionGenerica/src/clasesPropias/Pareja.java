@@ -44,4 +44,11 @@ public class Pareja<T> {
         return this.primero;
     }
 
+    // metodo para imprimir un Empleado, sera publico,static para ser llamado por la
+    // propia clase y no retorna nada
+    public static void imprimirTrabajador(Pareja<? extends Empleado> p) {
+        Empleado primero = p.getPrimero();
+        System.out.println(primero);
+    }
+
 }
