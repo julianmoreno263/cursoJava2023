@@ -3,10 +3,11 @@
     "java.configuration.runtimes": [],
     "java.debug.settings.onBuildFailureProceed": true,
     "java.project.sourcePaths": [
+        "ProgramacionGenerica/src",
         "Primeros pasos/src",
         "Excepciones/src",
         "Calculadora",
         "AccesoArchivos/src",
-        "ProgramacionGenerica/src"
+        "ProgramacionConcurrente/src"
     ]
 }

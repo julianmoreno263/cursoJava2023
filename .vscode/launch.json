@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UsoThreads",
+            "request": "launch",
+            "mainClass": "usoThreads.UsoThreads",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
             "name": "MetodosGenericos",
             "request": "launch",
             "mainClass": "clasesPropias.MetodosGenericos",
