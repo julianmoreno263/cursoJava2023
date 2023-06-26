@@ -34,6 +34,21 @@ Entonces en este programa nos conviene que sea multihilo para poder realizar var
 
 Siguiendo estos pasos crearemos multiples hilos,por lo cual cada accion del programa se convierte en un hilo diferente y trabajan en simultaneo.Si ejecuto el programa y sale la primera pelota sera un primer hilo,si doy nuevamente Dale sin que se haya terminado el primer hilo me sale una segunda pelota(segundo hilo) y asi sucesivamente,tambien si doy salir se termina el programa aunque no se haya terminado de ejecutar.
 
+-----------------------------------------------------------------------
+(v169) vamos a ver como interrumpir un hilo de ejecucion, para esto debemos usar los metodos de la clase Thread  void interrupt(), boolean isInterrupted(),static boolean isInterrupted() y el metodo stop() el cual ya esta desaconsejado pero lo vemos por si lo encontramos en algun libro o tutorial antiguo.
+
+Ahora, el metodo sleep que usamos para dar una pausa en un hilo esta preparado para lanzar una excepcion si se presenta, si nosotros pausamos con sleep() el hilo de ejecucion y tratamos de interrumpirlo con alguno de estos metodos es alli cuando el sleep lanzara la excepcion que es de tipo InterruptedException.
+
+1- vamos a crear otro boton que sea el que me permita interrumpir el programa, esto en la clase MarcoRebote.
+
+2- ahora, este boton llamara a un metodo detener() el cual utilizara el mismo objeto llamado hilo que creamos en el metodo comienza_el_juego() para detener ese mismo hilo, primero utilizaremos el metodo stop() para detener este hilo,este metodo esta desaconsejado pero aun funciona.
+
+3- como hilo se declaro dentro del metodo comienza_el_juego no sera accesible en detener() por lo que la declaramos mejor fuera del metodo y asi sera accesible en ambos metodos.
+
+4- ahora, en vez de utilizar stop utilizamos interrupt(), pero como dijimos,si el programa esta corriendo y lo pausamos con sleep() y despues le damos Detener lanzara una excepcion porque con sleep estara bloqueado el programa y si intentamos detenerlo lanzara la excepcion.Lo que se suele hacer en el catch del sleep es ponerle un System.exit(0) para que si le damos Detener pues cierre el programa.
+
+5- ahora,la diferencia con interrupted y isInterrupted es que el primero sirve para cualquier hilo en ejecucion y el segundo para el hilo actual en ejecucion, por lo que para no usar el sleep podemos sustituir en un while el codigo del try-catch y usar junto a isInterrupted el metodo currentThread para evaluar si el hilo actual esta interrumpido o no.
+
  */
 
 package usoThreads;
@@ -159,6 +174,7 @@ class LaminaPelota extends JPanel {
 class MarcoRebote extends JFrame {
 
 	private LaminaPelota lamina;
+	Thread hilo;
 
 	public MarcoRebote() {
 
@@ -186,6 +202,17 @@ class MarcoRebote extends JFrame {
 			public void actionPerformed(ActionEvent evento) {
 
 				System.exit(0);
+
+			}
+
+		});
+
+		// crea el boton de interrumpir
+		ponerBoton(laminaBotones, "Detener", new ActionListener() {
+
+			public void actionPerformed(ActionEvent evento) {
+
+				detener();
 
 			}
 
@@ -220,11 +247,19 @@ class MarcoRebote extends JFrame {
 		// creo una instancia d ela clase Thread y le paso este objeto Runnable
 		// utilizando el constructor que pide un objeto de este tipo,la clase Thread
 		// tiene sobrecarga de constructores.
-		Thread hilo = new Thread(r);
+		hilo = new Thread(r);
 
 		// con start() de la clase Thread comienzo la ejecucion del hilo
 		hilo.start();
 
+	}
+
+	public void detener() {
+
+		// metodo desaconsejado
+		// hilo.stop();
+
+		hilo.interrupt();
 	}
 
 }
@@ -250,22 +285,33 @@ class PelotaHilos implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 
-		for (int i = 1; i <= 3000; i++) {
+		System.out.println("Estado del hilo al comenzar " + Thread.currentThread().isInterrupted());
+
+		// aqui indicamos que mientras el hilo actual no este interrumpido pinte la
+		// pelota
+		while (!Thread.currentThread().isInterrupted()) {
 
 			pelota.mueve_pelota(componente.getBounds());
 
 			componente.paint(componente.getGraphics());
-
-			// aqui usamos sleep() para poder hacer la pausa en el hilo,la haremos de 4
-			// milisegundos
-			try {
-				Thread.sleep(4);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
 		}
+
+		System.out.println("Estado del hilo al terminar " + Thread.currentThread().isInterrupted());
+
+		// for (int i = 1; i <= 3000; i++) {
+
+		// aqui usamos sleep() para poder hacer la pausa en el hilo,la haremos de 4
+		// milisegundos
+		// try {
+		// Thread.sleep(4);
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// // e.printStackTrace();
+		// System.out.println("Programa bloqueado,imposible su interrpción");
+		// // System.exit(0);
+		// }
+
+		// }
 
 		throw new UnsupportedOperationException("Unimplemented method 'run'");
 	}
