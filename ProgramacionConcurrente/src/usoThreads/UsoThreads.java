@@ -49,6 +49,26 @@ Ahora, el metodo sleep que usamos para dar una pausa en un hilo esta preparado p
 
 5- ahora,la diferencia con interrupted y isInterrupted es que el primero sirve para cualquier hilo en ejecucion y el segundo para el hilo actual en ejecucion, por lo que para no usar el sleep podemos sustituir en un while el codigo del try-catch y usar junto a isInterrupted el metodo currentThread para evaluar si el hilo actual esta interrumpido o no.
 
+-------------------------------------------------------------
+(v170) ahora vamos a ver como detener varios hilos a voluntad,por ejemplo si tenemos 7 hilos en ejecucion, vamos a ver como detener el 3 o el 6,etc.Para esto primero debemos saber como esta trabajando nuestra app, cuando ejecutamos un hilo,osea pintamos una pelota y comienza a rebotar,se esta ejecutando la funcion comienza_el_juego(), esta funcion se encarga de generar un hilo al cual le da por nombre "hilo", cuando ejecutamos un segundo hilo como no pueden haber dos instancias con el mismo nombre, el segundo hilo se crea con el nombre "hilo",osea machaca al anterior,y el primer hilo se queda sin nombre pero sigue ejecutandose. Cuando damos "Detener", se ejecuta la funcion detener() la cual lo que hace es parar el hilo con el nombre "hilo" pero el otro hilo sin nombre sigue ejecutandose,por eso al detener el hilo se detiene siempre el ultimo hilo creado,el ultimo hilo en ejecucion.
+
+Entonces, la solucion es ir creando hilos independientes,osea que cada hilo tenga su propio nombre para si poder detener el que necesitemos.
+
+1- creamos tres botones para cada hilo,para eso bloqueamos el metodo que crea el boton "ponerBoton" y en MarcoRebote tambien quitamos las llamadas a este metodo.
+
+2- como necesitare 3 hilos,pues creo tres variables de hilo1,hilo2,hilo3.
+
+3- tambien creo tres variables de tipo JButton para arrancar cada hilo y otros 3 para detener cada hilo.
+
+4- en el constructor de MarcoRebote creo las instancias de estos botones y pongo cada una a la escucha del evento con ActionListener, y los agrego a la lamina.
+
+5- ahora, para que el metodo comeinza_el_juego() sea capaz de saber que hilo debe arrancar y detener, le pasamos en actionPerformed a la llamada del metodo el evento "e" como parametro, y en el propio metodo comienza_el_juego(ActionEvent evento) le pasamos tambien un argumento de tipo ActionEvent para que pueda recibir el parametro.Este objeto e es el que permitira saber cual boton se ha pulsado.
+
+6- luego con if-else if voy evaluando cual boton es la fuente del evento y segun cada caso voy creando los correspondientes hilos, hago lo mismo para todos los botones,tanto los de detener como los de arrancar. Listo, asi ya funcionan los hilos independientes y sus correspondientes botones.
+
+----------------------------------------------------------------
+
+
  */
 
 package usoThreads;
@@ -174,11 +194,12 @@ class LaminaPelota extends JPanel {
 class MarcoRebote extends JFrame {
 
 	private LaminaPelota lamina;
-	Thread hilo;
+	Thread hilo1, hilo2, hilo3;
+	JButton arranca1, arranca2, arranca3, detener1, detener2, detener3;
 
 	public MarcoRebote() {
 
-		setBounds(400, 300, 400, 350);
+		setBounds(400, 300, 600, 350);
 
 		setTitle("Rebotes");
 
@@ -188,54 +209,131 @@ class MarcoRebote extends JFrame {
 
 		JPanel laminaBotones = new JPanel();
 
-		ponerBoton(laminaBotones, "Dale!", new ActionListener() {
+		// creo los botones de arrancar para trabajar con hilos independientes
+		arranca1 = new JButton("Hilo 1");
+		arranca1.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent evento) {
-
-				comienza_el_juego();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				comienza_el_juego(e);
 			}
 
 		});
 
-		ponerBoton(laminaBotones, "Salir", new ActionListener() {
+		arranca2 = new JButton("Hilo 2");
+		arranca2.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent evento) {
-
-				System.exit(0);
-
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				comienza_el_juego(e);
 			}
 
 		});
 
-		// crea el boton de interrumpir
-		ponerBoton(laminaBotones, "Detener", new ActionListener() {
+		arranca3 = new JButton("Hilo 3");
+		arranca3.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent evento) {
-
-				detener();
-
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				comienza_el_juego(e);
 			}
 
 		});
+
+		// botones de detener
+		detener1 = new JButton("Detener 1");
+		detener1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				detener(e);
+			}
+
+		});
+
+		detener2 = new JButton("Detener 2");
+		detener2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				detener(e);
+			}
+
+		});
+
+		detener3 = new JButton("Detener 3");
+		detener3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				detener(e);
+			}
+
+		});
+
+		laminaBotones.add(arranca1);
+		laminaBotones.add(arranca2);
+		laminaBotones.add(arranca3);
+		laminaBotones.add(detener1);
+		laminaBotones.add(detener2);
+		laminaBotones.add(detener3);
+
+		// ----------------------------------------------
+
+		// ponerBoton(laminaBotones, "Dale!", new ActionListener() {
+
+		// public void actionPerformed(ActionEvent evento) {
+
+		// comienza_el_juego();
+		// }
+
+		// });
+
+		// ponerBoton(laminaBotones, "Salir", new ActionListener() {
+
+		// public void actionPerformed(ActionEvent evento) {
+
+		// System.exit(0);
+
+		// }
+
+		// });
+
+		// // crea el boton de interrumpir
+		// ponerBoton(laminaBotones, "Detener", new ActionListener() {
+
+		// public void actionPerformed(ActionEvent evento) {
+
+		// detener();
+
+		// }
+
+		// });
 
 		add(laminaBotones, BorderLayout.SOUTH);
 	}
 
 	// Ponemos botones
 
-	public void ponerBoton(Container c, String titulo, ActionListener oyente) {
+	// public void ponerBoton(Container c, String titulo, ActionListener oyente) {
 
-		JButton boton = new JButton(titulo);
+	// JButton boton = new JButton(titulo);
 
-		c.add(boton);
+	// c.add(boton);
 
-		boton.addActionListener(oyente);
+	// boton.addActionListener(oyente);
 
-	}
+	// }
 
 	// A�ade pelota y la bota 1000 veces
 
-	public void comienza_el_juego() {
+	public void comienza_el_juego(ActionEvent evento) {
 
 		Pelota pelota = new Pelota();
 
@@ -244,22 +342,43 @@ class MarcoRebote extends JFrame {
 		// aqui creo una instancia de la clase que implementa Runnable
 		Runnable r = new PelotaHilos(pelota, lamina);
 
-		// creo una instancia d ela clase Thread y le paso este objeto Runnable
-		// utilizando el constructor que pide un objeto de este tipo,la clase Thread
-		// tiene sobrecarga de constructores.
-		hilo = new Thread(r);
+		// if para ir evaluando que boton se ha pulsado y crear el hilo correspondiente
+		if (evento.getSource().equals(arranca1)) {
+			// creo una instancia d ela clase Thread y le paso este objeto Runnable
+			// utilizando el constructor que pide un objeto de este tipo,la clase Thread
+			// tiene sobrecarga de constructores.
+			hilo1 = new Thread(r);
 
-		// con start() de la clase Thread comienzo la ejecucion del hilo
-		hilo.start();
+			// con start() de la clase Thread comienzo la ejecucion del hilo
+			hilo1.start();
+
+		} else if (evento.getSource().equals(arranca2)) {
+			hilo2 = new Thread(r);
+			hilo2.start();
+
+		} else if (evento.getSource().equals(arranca3)) {
+			hilo3 = new Thread(r);
+			hilo3.start();
+		}
 
 	}
 
-	public void detener() {
+	public void detener(ActionEvent evento) {
 
 		// metodo desaconsejado
 		// hilo.stop();
 
-		hilo.interrupt();
+		if (evento.getSource().equals(detener1)) {
+
+			hilo1.interrupt();
+
+		} else if (evento.getSource().equals(detener2)) {
+			hilo2.interrupt();
+
+		} else if (evento.getSource().equals(detener3)) {
+			hilo3.interrupt();
+		}
+
 	}
 
 }
@@ -294,22 +413,23 @@ class PelotaHilos implements Runnable {
 			pelota.mueve_pelota(componente.getBounds());
 
 			componente.paint(componente.getGraphics());
+
+			// aqui usamos sleep() para poder hacer la pausa en el hilo,la haremos de 4
+			// milisegundos
+			try {
+				Thread.sleep(4);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				// e.printStackTrace();
+				// System.out.println("Programa bloqueado,imposible su interrpción");
+				// System.exit(0);
+				Thread.currentThread().interrupt();
+			}
 		}
 
 		System.out.println("Estado del hilo al terminar " + Thread.currentThread().isInterrupted());
 
 		// for (int i = 1; i <= 3000; i++) {
-
-		// aqui usamos sleep() para poder hacer la pausa en el hilo,la haremos de 4
-		// milisegundos
-		// try {
-		// Thread.sleep(4);
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// // e.printStackTrace();
-		// System.out.println("Programa bloqueado,imposible su interrpción");
-		// // System.exit(0);
-		// }
 
 		// }
 
