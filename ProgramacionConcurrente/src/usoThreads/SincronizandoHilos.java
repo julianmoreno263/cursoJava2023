@@ -38,6 +38,8 @@ Para esto lo que se hace es pasarle por ejemplo al hilo2 por parametro el hilo1,
 
 Ahora, con este forma de sincronizar,el main queda liberado,por lo que la linea del syso se ejecuta primero y despues van los hilos.
 
+--------------------------------------------------
+
  */
 
 package usoThreads;
