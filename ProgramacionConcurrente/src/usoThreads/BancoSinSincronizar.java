@@ -84,6 +84,20 @@ osea,le estamos diciendo al codigo que "mientras la condicion del while sea verd
 
 Listo, de esta forma con condiciones de bloqueo ningun hilo muere,solo quedan ala espera para poderse ejecutar despues y asi todas las transferencias se realizan.
 
+-----------------------------------------------------------------------
+(v178) vamos a ver como se pueden hacer las sincronizaciones d ehilos con condiciones pero de una forma mas sencilla utilizando la palabra reservada synchronized en el metodo que queremos bloquear,osea el metodo  transferencia, para esto tambien usaremos dos metodos de la clase Object que son wait() y notifyAll(), estos metodos hacen lo mismo que los metodos await y signalAll de la interfaz Condition que habiamos implementado, osea wait() pone el hilo en espera segun la condicion que estemos manejando y notifyAll le avisa a los hilos que estan en espera que despierten para que revisen si la condicion les sirve para ejecutarse.
+
+1- Para reemplazar el codigo que teniamos, ponemos la palabra reservada synchronized en el metodo transferencia.
+
+2- ya no nos sirven las condiciones que habiamos creado en el constructor ni el bloqueo con lock que habiamos creado en el metodo transferencia.Tambien eliminamos el await del while y el try-finally pues ya no nos hace falta al no haber bloqueo con await().Tampoco necesitamos los campos de clase de Lock y de tipo Condition pues ya no tenemos estos bloqueos ni la condicion.
+
+3- ahora, simplemente usamos en el while el metodo wait(), de esta forma si la condicion del while se cumple el hilo se pondra a la espera.Y se coloca el noifyAll() al final del codigo del metodo transferencia, asi si la transferencia s erealizo notificará a los posibles hilos que puedan estar a la espera que se ejecuten si la condicion les favorece.Asi hacemos lo mismo que hicimos con la implementacion de la interfaz Condition y los metodos lock y unlock pero mucho mas sencillo.
+
+La diferencia en usar Condition es que con Condition puedo crear varias condiciones si necesito para que un hilo se ejecute, mientras que con synchronized solo se puede establecer una condicion,entonces se deben usar estas formas de bloqueos segun lo que se necesite hacer.
+
+En resumen, un objeto por heredar de la clase Object lleva por defecto un cierre implicito,osea se puede utilizar el wait() con synchronized, y si se necesitan varias condiciones se puede crear cierresexplicitos con la interfaz  Condition de la clase ReentratLock.
+
+
  */
 
 package usoThreads;
@@ -114,8 +128,8 @@ public class BancoSinSincronizar {
 class Banco {
 
     private final double cuentas[];
-    private Lock cierreBanco = new ReentrantLock();
-    private Condition saldoSuficiente;
+    // private Lock cierreBanco = new ReentrantLock();
+    // private Condition saldoSuficiente;
 
     // constructor
     public Banco() {
@@ -130,53 +144,62 @@ class Banco {
 
         // aqui establecemos que cada vez que instanciemos un Banco este venga con una
         // condicion en el bloqueo.
-        saldoSuficiente = cierreBanco.newCondition();
+        // saldoSuficiente = cierreBanco.newCondition();
     }
 
     // metodo para las transferencias entre cuentas
-    public void transferencia(int cuentaOrigen, int cuentaDestino, double cantidad) throws InterruptedException {
+    public synchronized void transferencia(int cuentaOrigen, int cuentaDestino, double cantidad)
+            throws InterruptedException {
 
         // aqui bloqueamos el codigo para que solo lo acceda un hilo a la vez
-        cierreBanco.lock();
+        // cierreBanco.lock();
 
-        try {
-            // aqui evaluamos que el saldo de la cuenta no sea inferior a la cantidad que
-            // queremos transferir,si esto pasa no deja hacer nada con el return.Pero al
-            // poner condicion de bloqueo usamos el metodo await() y deja a la espera el
-            // hilo.
-            while (cuentas[cuentaOrigen] < cantidad) {
+        // try {
+        // aqui evaluamos que el saldo de la cuenta no sea inferior a la cantidad que
+        // queremos transferir,si esto pasa no deja hacer nada con el return.Pero al
+        // poner condicion de bloqueo usamos el metodo await() y deja a la espera el
+        // hilo.
+        while (cuentas[cuentaOrigen] < cantidad) {
 
-                saldoSuficiente.await();
+            // saldoSuficiente.await();
 
-            }
+            // metodo de la clse Object para poner a la espera el hilo
+            wait();
 
-            // imprimimos el hilo que realiza la transferencia actual
-            System.out.println(Thread.currentThread());
-
-            // aqui descontamos de la cuenta origen la cantidad que queremos transferir
-            cuentas[cuentaOrigen] -= cantidad;
-
-            // mensaje que indica la cantidad a transferir y entre que cuentas,usamos printf
-            // para darle este formato y asi usar dos decimales.
-            System.out.printf("%10.2f de %d para %d", cantidad, cuentaOrigen, cuentaDestino);
-
-            // aqui incrementamos el saldo de la cuenta destino
-            cuentas[cuentaDestino] += cantidad;
-
-            // aqui imprio el saldo total
-            System.out.printf("Saldo total: %10.2f%n ", getSaldoTotal());
-
-            // con esta instruccion le indicamos a los hilos que estan ala espera que
-            // despierten y miren si la condicion del while a cambiado para que puedan
-            // ejecutarse
-            saldoSuficiente.signalAll();
-
-        } finally {
-
-            cierreBanco.unlock();
         }
 
-    }
+        // imprimimos el hilo que realiza la transferencia actual
+        System.out.println(Thread.currentThread());
+
+        // aqui descontamos de la cuenta origen la cantidad que queremos transferir
+        cuentas[cuentaOrigen] -= cantidad;
+
+        // mensaje que indica la cantidad a transferir y entre que cuentas,usamos printf
+        // para darle este formato y asi usar dos decimales.
+        System.out.printf("%10.2f de %d para %d", cantidad, cuentaOrigen, cuentaDestino);
+
+        // aqui incrementamos el saldo de la cuenta destino
+        cuentas[cuentaDestino] += cantidad;
+
+        // aqui imprio el saldo total
+        System.out.printf("Saldo total: %10.2f%n ", getSaldoTotal());
+
+        // con este metodo de la clase Object se reemplaza signalAll, hace lo
+        // mismo,cuando se realiza una transferencia notifica a los hilos que pueden
+        // estar a la espera para que se ejecuten si la condicion les favorece.
+        notifyAll();
+
+        // con esta instruccion le indicamos a los hilos que estan ala espera que
+        // despierten y miren si la condicion del while a cambiado para que puedan
+        // ejecutarse
+        // saldoSuficiente.signalAll();
+
+    } // finally {
+
+    // cierreBanco.unlock();
+    // }
+
+    // }
 
     // metodo para ir calculando el saldo total, aqui el bucle va sumando los 2000
     // de cada cuenta hasta llegar al total de los 200.000 de las 100 cuentas y nos

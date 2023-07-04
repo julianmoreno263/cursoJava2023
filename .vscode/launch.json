@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CuentasUsuarios",
+            "request": "launch",
+            "mainClass": "coleccion.CuentasUsuarios",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
             "name": "BancoSinSincronizar",
             "request": "launch",
             "mainClass": "usoThreads.BancoSinSincronizar",

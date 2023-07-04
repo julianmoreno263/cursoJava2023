@@ -4,10 +4,11 @@
     "java.debug.settings.onBuildFailureProceed": true,
     "java.project.sourcePaths": [
         "ProgramacionGenerica/src",
+        "ProgramacionConcurrente/src",
         "Primeros pasos/src",
         "Excepciones/src",
         "Calculadora",
         "AccesoArchivos/src",
-        "ProgramacionConcurrente/src"
+        "Colecciones/src"
     ]
 }
