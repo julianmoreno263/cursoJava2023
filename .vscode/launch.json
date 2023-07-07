@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PruebaLinkedList",
+            "request": "launch",
+            "mainClass": "coleccion.PruebaLinkedList",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
             "name": "UsoLibro",
             "request": "launch",
             "mainClass": "coleccion.UsoLibro",
