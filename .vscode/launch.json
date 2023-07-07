@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PruebaTreeSet",
+            "request": "launch",
+            "mainClass": "coleccion.PruebaTreeSet",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "PruebaListaEnlazada",
+            "request": "launch",
+            "mainClass": "coleccion.PruebaListaEnlazada",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
             "name": "PruebaLinkedList",
             "request": "launch",
             "mainClass": "coleccion.PruebaLinkedList",
