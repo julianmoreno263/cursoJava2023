@@ -20,7 +20,18 @@
 
 4- creo en la clase main un objeto de tipo comparator,osea instancio la clase Articulo con su constructor,porque la clase Articulo implementa esta interfaz,pero como este constructor pide dos parametros y para usar Comparator no necesito estos parametros creo un segundo constructor en Articulo sin parametros y este constructor es el que utilizo para crear mi objeto de tipo Comparator.Esta solucion no es la mas adecuada pero vamos por pasos.
 
-5- ahora creo la coleccion TreeSet y a esta coleccion le aso nuestro objeto comparador
+5- ahora creo la coleccion TreeSet y a esta coleccion le paso nuestro objeto comparador
+
+----------------------------------------------------
+(v188) vamos a ver como podemos usar los TreesEt sin necesidad de implementar la interfaz Comparator en el caso de que queramos usar objetos de nuestras propias clases y no implementen esta interfaz.
+
+1- copio la clase Articulo para no borrarla y esta copia no implementara comparator por lo que no lleva la implementacion de la interfaz ni el metodo compare, ni el constructor por defecto.
+
+2- vamos a crear un nuevo objeto comparador,por lo que creo una clase para este objeto comparador, esta clase si implementara Comparator, pero de esta forma ya no es necesario que la clase Articulos que es la que crea los objetos implemente la interfaz.
+
+3-creada la clase vamos a main y creamos este objeto comparador y la coleccion con este objeto.
+
+4- ahora, podemos hacer lo mismo de crear este objeto comparador en la misma definicion del TreeSet,osea usar una clase interna y asi no necesitamos crear una nueva clase aparte, en esta clase interna ponemos el metodo sobreescrito compare.
 
 
  */
@@ -48,7 +59,7 @@ public class PruebaTreeSet {
         Articulo tercero = new Articulo(3, "Tercer articulo");
 
         // creamos nuestra lista TreeSet y le agregamos los articulos y usando el metodo
-        // compa reTo() debe de mostrarlos en orden.
+        // compareTo() debe de mostrarlos en orden.
         TreeSet<Articulo> ordenaArticulos = new TreeSet<>();
         ordenaArticulos.add(tercero);
         ordenaArticulos.add(segundo);
@@ -63,12 +74,25 @@ public class PruebaTreeSet {
         System.out.println("------------------------------");
 
         // objeto Articulo que usara la interfaz Comparator
-        Articulo comparadorArticulos = new Articulo();
+        // Articulo comparadorArticulos = new Articulo();
 
         // coleccion TreeSet,aqui establecemos que esta coleccion se va a ordenar segun
         // lo que establezca el objeto comparador,y en este caso esta comparando por el
         // string de descripcion entonces lo ordenara alfabeticamente
-        TreeSet<Articulo> ordenaArticulos2 = new TreeSet<>(comparadorArticulos);
+        // TreeSet<Articulo> ordenaArticulos2 = new TreeSet<>(comparadorArticulos);
+
+        // objeto comparador creado con una clase interna
+        TreeSet<Articulo> ordenaArticulos2 = new TreeSet<>(new Comparator<Articulo>() {
+            @Override
+            public int compare(Articulo o1, Articulo o2) {
+
+                String desc1 = o1.getDescripcion();
+                String desc2 = o2.getDescripcion();
+
+                return desc1.compareTo(desc2);
+
+            }
+        });
         ordenaArticulos2.add(tercero);
         ordenaArticulos2.add(primero);
         ordenaArticulos2.add(segundo);
@@ -81,8 +105,8 @@ public class PruebaTreeSet {
     }
 }
 
-// clase propia
-class Articulo implements Comparable<Articulo>, Comparator<Articulo> {
+// clase propia que no implementa Comparator
+class Articulo implements Comparable<Articulo> {
 
     private int numArticulo;
     private String descripcion;
@@ -92,11 +116,6 @@ class Articulo implements Comparable<Articulo>, Comparator<Articulo> {
 
         this.numArticulo = num;
         this.descripcion = desc;
-    }
-
-    // segundo constructor sin parametros
-    public Articulo() {
-
     }
 
     // metodo sobreescrito,compara los elementos y segun eso devuelve un -1,0, o un
@@ -114,14 +133,69 @@ class Articulo implements Comparable<Articulo>, Comparator<Articulo> {
         return this.descripcion;
     }
 
-    @Override
-    public int compare(Articulo o1, Articulo o2) {
-
-        String descripcionA = o1.getDescripcion();
-        String descripcionB = o2.getDescripcion();
-
-        return descripcionA.compareTo(descripcionB);
-
-    }
-
 }
+
+// ---------------------------------------------------------------------
+
+// clase que creara el objeto comparador,por lo tanto implementara Comparator
+// class ComparadorArticulos implements Comparator<Articulo> {
+
+// @Override
+// public int compare(Articulo o1, Articulo o2) {
+
+// String desc1 = o1.getDescripcion();
+// String desc2 = o2.getDescripcion();
+
+// return desc1.compareTo(desc2);
+
+// }
+
+// }
+
+// ---------------------------------------------------------------------
+
+// // clase propia
+// class Articulo implements Comparable<Articulo>, Comparator<Articulo> {
+
+// private int numArticulo;
+// private String descripcion;
+
+// // constructor
+// public Articulo(int num, String desc) {
+
+// this.numArticulo = num;
+// this.descripcion = desc;
+// }
+
+// // segundo constructor sin parametros
+// public Articulo() {
+
+// }
+
+// // metodo sobreescrito,compara los elementos y segun eso devuelve un -1,0, o
+// un
+// // 1. Aqui le decimos que devuelva el numero de articulo que le pasamos al
+// // objeto creado menos otro numero de articulo de otro objeto.Este metodo se
+// // hace para que compare los objetos que se creen por orden de articulo y los
+// // organice.
+// @Override
+// public int compareTo(Articulo o) {
+// return this.numArticulo - o.numArticulo;
+// }
+
+// public String getDescripcion() {
+
+// return this.descripcion;
+// }
+
+// @Override
+// public int compare(Articulo o1, Articulo o2) {
+
+// String descripcionA = o1.getDescripcion();
+// String descripcionB = o2.getDescripcion();
+
+// return descripcionA.compareTo(descripcionB);
+
+// }
+
+// }
