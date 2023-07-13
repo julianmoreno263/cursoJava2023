@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Cliente",
+            "request": "launch",
+            "mainClass": "julianSockets.Cliente",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "Servidor",
+            "request": "launch",
+            "mainClass": "julianSockets.Servidor",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
             "name": "Servidor",
             "request": "launch",
             "mainClass": "julianSockets.Servidor",
