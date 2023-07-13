@@ -36,6 +36,49 @@ PASOS PARA EL SOCKET:
 
 14- por ultimo,debemos decirle al area de texto del servidor que vaya escribiendo el texto que nos llego,lo hacemos utilizando el metodo appen(), y al final cerramos el socket con el metodo close().Listo!!, si pruebo la aplicacion,lo qu escribo en el cliente debe verse en el servidor.Ahora, si intento escribir nuevamente y enviar otro mensaje no hace nada porque le dijimos al final al servidor que cerrarar el socket,para que nos deje seguir enviando texto debemos poner el codigo que esta dentro del try en un bucle while para que una vez cerrado el socket vuelva y habra la conexion desde el metodo accept() y asi sucesivamente.Este bucle no incide en el funcionamiento de la app del servidor porque se esta ejecutando en segundo plano en un hilo,osea,si la ventana del servidor tuviera menus o campos de texto,etc, estos se pueden utilizar sin problema porque la funcionalidad del socket esta en segundo plano en un hilo.De esta forma ya recibe varios mensajes porque se cierra el socket pero despues vuelve a abrir la conexion.Si queremos podemos poner estas apps en un jar ejecutable para que sea independiente del vsc.
 
+---------------------------------------------------------
+(v192) vamos a comenzar a hacer nuestro chat, funcionara asi: crearemos por lo menos 2 clientes para que estos se comuniquen entre ellos a traves del servidor, para simular dos clientes usaremos virtualbox para crear dos maquinas virtuales e instalar los clientes alli.
+
+1- lo primero es crear en nuestro cliente un area de texto para que tambien se pueda reflejar alli la conversacion o todo lo que reciba.
+
+2- crearemos tambien encima del area de texto dos cuadros de texto,uno para introducir nuestro nombre y otro para ingresar la direccion ip del otro cliente con el que vamos a chatear para asi identificarse mejor.
+
+3- como debemos enviar tres datos,el nick,la ip de destino y el mensaje,crearemos un objeto que tenga esos datos y el cliente receptor despues lo lea,para esto creamos una clase y en esta clase creamos los metodos setters y getters para manipular esos datos.
+
+4- ahora en la clase de la lamina despues de la linea donde creamos el socket creamos el codigo para poder enviar estos tres datos por los correspondientes campos,las lineas donde creamos el flujo de salida y lo usamos ya no las necesitamos porque esa clase que usamos para crear el flujo de salida es DataOutputStream y sirve para un flujo de datos de texto,y como vamos a neviar un objeto debemos trabajar con ObjectOutputStream.
+
+5-(v193) creamos el flujo de datos para enviar el objeto con ObjectOutputStream.Despues,como vamos a enviar un objeto por la red,debemos serializarlo,osea convertirlo en una serie de bytes para que pueda ir por la red,esto lo hacemos implementando la interfaz Serializable en la clase que crea el objeto,osea la clase PaqueteEnvio.
+
+6- listo, ahora debemos ir al servidor y crear tres variables para almacenar la informacion que le llega de estos 3 datos, lo hacemos en el metodo run despues de crear el ServerSocket.
+
+7- despues creamos un objeto del mismo tipo del que envia el cliente para que se almacenen alli esos 3 datos,osea de la clase PaqueteEnvio.
+
+8- ahora en el while creo el flujo de datos d eentrada para recibir ese objeto,se hace con la clase ObjectInputStream.
+
+9- ahora en el objeto que creamos de tipo PaqueteEnvio almacenamos lo que traiga este flujo de datos de entrada que es de tipo ObjectInputStream,pero como no son del mismo tipo debemos castear para que se pueda almacenar el flujo de datos en el objeto, con vsc lo hacemos automaticamente,ademas esto lanza una exception,entonces como esto ya esta dentro de un try-catch,adicionamos esta nueva exception en el catch que tenemos,dejamos que vsc lo haga por medio de la opcion que aparece al poner el cursor en el error "Add exception to existing catch clause".
+
+10-ahora, almacenamos en cada variable de nick,ip,mensaje,los datos de ese objeto que recibio el servidor utilizando los getters correspondientes, y luego con append() envio esos datos al area de texto para que se puedan ver y cierro el socket. Hasta aqui ya tenemos la mitad del chat,porque ya se comunica del primer cliente al servidor y el servidor captura el objeto y lle los datos que tiene y los muestra,falta que el servidor envie los datos hacia un segundo cliente y ese segundo cliente los reciba,asi tendremos la comunicacion completa entre clientes a traves del servidor.
+
+11-(v194) ahora vamos a hacer que el servidor sea capaz de reenviar la informacion que capturo del objeto del cliente emisor al cliente destino.Entonces en el while antes de cerrar el socket creamos un segundo socket que sera el puente de envio de los datos del servidor al cliente receptor,esto lo hacemos con la clase Socket y le pasamos la ip destino y un puerto.
+
+12- ahora, debemos crear el flujo de datos para enviar el objeto,lo hacemos con ObjectOutputStream.
+
+NOTA: nosotros no vamos a hacer una segunda app cliente,sino que replicamos la que ya tenemos en una maquina virtual que tendra su propia ip, osea, el cliente que ya tenemos es el que se replica en los demas pc en donde queramos que este nuestro chat y cada uno de esos pcs tiene su ip,por eso despues usaremos virtualbox para simular un computador nuevo donde instalaremos nuestro cliente chat, y el servidor es un intermediario entre esos clientes.En virtualbox crearemos dos pc y alli ponemos los clientes cada uno con su ip,y en nuestro pc,en local,estara el servidor.Los clientes los convertimos a jar ejecutables y se los pasamos a estas maquinas virtuales,el servidor lo podemos abrir con vsc como lo hemos echo o tambien se podria poner en otra maquina virtual y pasarlo como jar ejecutable.
+
+13-metemos el paquete con los datos en el flujo de reenvio con el metodo writeObject() y cerramos este segundo socket.
+
+14- listo, ahora volvemos nuevamente al cliente y debemos crear el codigo para que tambien el cliente sea capaz de recibir informacion,para esto hacemos lo que ya hemos echo,poner el cliente a la escucha y tener un puerto de entrada para que reciba datos.Para que este a la escucha debemos hacer lo mismo que con el servidor,crear un hilo que s eeste ejecutando en segundo plano,implementamos en la clase de la lamina la interfaz Runnable y su metodo run().Para que el cliente este a la escucha de datos que le llegen,hacemos lo mismo que en el servidor,en run() creamos un ServerSocket pasandole el puerto que tiene que estar a la escucha,si en el servidor le dijimos que enviaria datos por el puerto 9090 pues ese mismo puerto es el que el cliente tiene que estar escuchando para recibir datos.Todo dentro de un try-catch.
+
+15- creamos un socket,creamos una variable tipo PaqueteEnvio que almacene el objeto recibido.
+
+16-para que el cliente este permanentemente a la escucha,ponemos dentro de un bucle while el socket del cliente que creamos con el metodo accept(), asi estara aceptando las conexiones que le lleguen del servidor.Despues creamos un flujo de datos de entrada para que sea capaz de transportar el objeto que le llega con los datos.
+
+17-alamcenamos el objeto que viene por ese flujo de entrada en la variable de tipo PaqueteEnvio,igualñ que en el servidor se debe castear y manejar la exception,vsc lo hace automaticamente con la ayuda.
+
+18-ya por ultimo, con append() visualizamos los datos que llegaron en el objeto en el area de texto del cliente utilizando los metodos getters,pues el objeto es de tipo PaqueteRecibido y este tiene estos metodos.
+
+19-por ultimo,en el constructor de la lamina creamos el hilo y lo corremos,para que cuando se ejecute la app cliente este hilo corra automaticamente en segundo plano.
+
 
 
 */
@@ -46,6 +89,9 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.*;
 
 public class Cliente {
@@ -70,15 +116,28 @@ class MarcoCliente extends JFrame {
 }
 
 // lamina
-class LaminaCliente extends JPanel {
+class LaminaCliente extends JPanel implements Runnable {
 
     private JTextField campo;
+    private JTextField nick;
+    private JTextField ip;
+
     private JButton miBoton;
+    private JTextArea campoChat;
 
     public LaminaCliente() {
 
-        JLabel texto = new JLabel("CLIENTE");
+        nick = new JTextField(5);
+        add(nick);
+
+        JLabel texto = new JLabel("-CHAT-");
         add(texto);
+
+        ip = new JTextField(8);
+        add(ip);
+
+        campoChat = new JTextArea(12, 20);
+        add(campoChat);
 
         campo = new JTextField(20);
         add(campo);
@@ -89,6 +148,10 @@ class LaminaCliente extends JPanel {
         miBoton.addActionListener(miEvento);
 
         add(miBoton);
+
+        // creamos el hilo de esta clase(this)
+        Thread miHilo = new Thread(this);
+        miHilo.start();
     }
 
     // clase interna para evento del boton
@@ -104,14 +167,27 @@ class LaminaCliente extends JPanel {
                 // creamos el socket
                 Socket miSocket = new Socket("192.168.0.3", 9999);
 
+                // objeto con los 3 datos a enviar que llegan de los cuadros de texto
+                // correspondientes
+                PaqueteEnvio datos = new PaqueteEnvio();
+                datos.setNick(nick.getText());
+                datos.setIp(ip.getText());
+                datos.setMensaje(campo.getText());
+
+                // flujo de datos de salida para enviar el objeto datos utilizando el socket
+                ObjectOutputStream paqueteDatos = new ObjectOutputStream(miSocket.getOutputStream());
+                paqueteDatos.writeObject(datos);
+                miSocket.close();
+
                 // creamos el flujo de datos indicando que debe ir por el socket
-                DataOutputStream flujoSalida = new DataOutputStream(miSocket.getOutputStream());
+                // DataOutputStream flujoSalida = new
+                // DataOutputStream(miSocket.getOutputStream());
 
-                // indicamos que el texto del cliente va a viajar por este flujo
-                flujoSalida.writeUTF(campo.getText());
+                // // indicamos que el texto del cliente va a viajar por este flujo
+                // flujoSalida.writeUTF(campo.getText());
 
-                // cerramos el flujo
-                flujoSalida.close();
+                // // cerramos el flujo
+                // flujoSalida.close();
             } catch (UnknownHostException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -121,5 +197,71 @@ class LaminaCliente extends JPanel {
             }
         }
 
+    }
+
+    // clase que crea los objetos con los datos del mensaje a enviar
+    class PaqueteEnvio implements Serializable {
+
+        private String nick, ip, mensaje;
+
+        // getters y setters
+        public String getNick() {
+            return nick;
+        }
+
+        public void setNick(String nick) {
+            this.nick = nick;
+        }
+
+        public String getIp() {
+            return ip;
+        }
+
+        public void setIp(String ip) {
+            this.ip = ip;
+        }
+
+        public String getMensaje() {
+            return mensaje;
+        }
+
+        public void setMensaje(String mensaje) {
+            this.mensaje = mensaje;
+        }
+
+    }
+
+    @Override
+    public void run() {
+
+        try {
+
+            // ponemos el cliente a la escucha
+            ServerSocket servidorCliente = new ServerSocket(9090);
+
+            // creamos el socket y la variable que almacena el objeto recibido
+            Socket cliente;
+            PaqueteEnvio paqueteRecibido;
+
+            // ponemos permanentemente al cliente a la escucha
+            while (true) {
+
+                // aceptamos las conexiones externas
+                cliente = servidorCliente.accept();
+
+                // creamos el flujo de datos de entrada
+                ObjectInputStream flujoEntrada = new ObjectInputStream(cliente.getInputStream());
+
+                // almacenamos el objeto que llega por ese flujo de datos
+                paqueteRecibido = (PaqueteEnvio) flujoEntrada.readObject();
+
+                // visualizamos los datos en el area de texto
+                campoChat.append("\n" + "De " + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje());
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

@@ -3,8 +3,9 @@ package julianSockets;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
-
 import javax.swing.*;
+
+import julianSockets.LaminaCliente.PaqueteEnvio;
 
 public class Servidor {
 
@@ -23,7 +24,7 @@ class MarcoServidor extends JFrame implements Runnable {
 
     public MarcoServidor() {
 
-        setBounds(800, 300, 250, 350);
+        setBounds(800, 300, 300, 350);
         setTitle("SERVIDOR");
 
         // lamina
@@ -48,19 +49,52 @@ class MarcoServidor extends JFrame implements Runnable {
             // ponemos el servidor a la escucha
             ServerSocket servidor = new ServerSocket(9999);
 
+            // variables para capturar los datos del cliente
+            String nick, ip, mensaje;
+
+            // objeto para almacenar estos datos
+            PaqueteEnvio paqueteRecibido;
+
             while (true) {
                 Socket miSocket = servidor.accept();
 
-                // creamos flujo de entrada y alamcenamos el texto que llega
-                DataInputStream flujoEntrada = new DataInputStream(miSocket.getInputStream());
-                String mensajeTexto = flujoEntrada.readUTF();
+                // flujo de datos de entrada para recibir el objeto
+                ObjectInputStream paqueteDatos = new ObjectInputStream(miSocket.getInputStream());
+
+                // almacenamos en el objeto lo que le llega por el flujo de datos
+                paqueteRecibido = (PaqueteEnvio) paqueteDatos.readObject();
+
+                // almacenamos en cada variable los datos que llegan del objeto
+                nick = paqueteRecibido.getNick();
+                ip = paqueteRecibido.getIp();
+                mensaje = paqueteRecibido.getMensaje();
 
                 // escribimos en el area de texto lo que viene del cliente y cerramos el socket
-                areaTexto.append("\n" + mensajeTexto);
+                areaTexto.append("\n" + "De " + nick + ": " + mensaje + " para " + ip);
+
+                // segundo socket para reenvio de informacion
+                Socket envioDestino = new Socket(ip, 9090);
+
+                // creamos flujo para reenvio de informacion
+                ObjectOutputStream paqueteReenvio = new ObjectOutputStream(envioDestino.getOutputStream());
+
+                // metemos el paquete de datos dentro de este flujo para el reenvio y cerramos
+                // el socket
+                paqueteReenvio.writeObject(paqueteRecibido);
+                envioDestino.close();
+
+                // creamos flujo de entrada y alamcenamos el texto que llega
+                // DataInputStream flujoEntrada = new
+                // DataInputStream(miSocket.getInputStream());
+                // String mensajeTexto = flujoEntrada.readUTF();
+
+                // // escribimos en el area de texto lo que viene del cliente y cerramos el
+                // socket
+                // areaTexto.append("\n" + mensajeTexto);
                 miSocket.close();
             }
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
