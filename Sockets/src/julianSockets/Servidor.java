@@ -58,6 +58,18 @@ class MarcoServidor extends JFrame implements Runnable {
             while (true) {
                 Socket miSocket = servidor.accept();
 
+                // --------- DETECTA ONLINE --------------------------
+
+                // aqui guardamos la ip como tipo InetAdress y despues con getHostAdress le
+                // damos formato de tipo string
+                InetAddress localizacion = miSocket.getInetAddress();
+                String ipRemota = localizacion.getHostAddress();
+
+                // prueba para ver si detecta las ip
+                System.out.println("Online " + ipRemota);
+
+                // ----------------------------------------
+
                 // flujo de datos de entrada para recibir el objeto
                 ObjectInputStream paqueteDatos = new ObjectInputStream(miSocket.getInputStream());
 
@@ -79,8 +91,9 @@ class MarcoServidor extends JFrame implements Runnable {
                 ObjectOutputStream paqueteReenvio = new ObjectOutputStream(envioDestino.getOutputStream());
 
                 // metemos el paquete de datos dentro de este flujo para el reenvio y cerramos
-                // el socket
+                // este flujo de datos y el socket
                 paqueteReenvio.writeObject(paqueteRecibido);
+                paqueteReenvio.close();
                 envioDestino.close();
 
                 // creamos flujo de entrada y alamcenamos el texto que llega

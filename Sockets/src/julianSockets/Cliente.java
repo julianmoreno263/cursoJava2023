@@ -79,6 +79,40 @@ NOTA: nosotros no vamos a hacer una segunda app cliente,sino que replicamos la q
 
 19-por ultimo,en el constructor de la lamina creamos el hilo y lo corremos,para que cuando se ejecute la app cliente este hilo corra automaticamente en segundo plano.
 
+----------------------------------------------------------
+(v195) vamos aterminar la app de chat y probarla desde varios pc.
+
+1- voy a dejar un cliente y el servidor en un mismo pc y el otro cliente lo pongo en otro computador para asi comunicarlos despues.
+
+2- ahora creo un jar ejecutable del cliente para usarlo en el otro pc.Logico para que en esa pc el archivo jar ejecutable pueda correr debe de tener instalado el jdk.Recordar que para generar un jar ejecutable en vsc simplemente me paro en la clase main de la que quiero generar el archivo,y en la parte inferior izquierda del vsc hay tres opciones,elijo JAVA PROJECTS y con la clase seleccionada le doy a la flecha ->,alli mesale un cuadro y debo digitar el nombre de la clase y doy enter y listo,se crea el ejecutable.
+
+3- debo saber las ips de ambos clientes porque cuando quiera enviar un chat la gui de los clientes me pide un nick y la ip a donde quiero comunicarme.Con cmd y ipconfig puedo saber la ipv4, en mi caso que uso el pc portatil de Carlos tiene la ip 192.168.0.9, y en este otro pc donde esta el cliente y el servidor la ip es 192.168.0.3.
+
+4- listo, si probamos la aplicacion colocando las ips correctamente en cada cliente,se comunican entre si con el servidor como intermediario.
+
+5- ahora, para corregir, solo se ve en el campo de chat de cada cliente lo que ese cliente recibe,en un chat se ve toda la conversacion,osea lo que el cliente escribe y lo que recibe,entonces para que los clientes puedan tambien ver en el campo de chat lo que escriben creamos esta linea en el actionPerformed del cliente:
+
+                    campoChat.append("\n" + campo.getText())
+
+esto en si, lo ponemos al principio de actionPerformed() e indica que le agrege al campo de chat lo que el usuario va escribiendo en el cuadro de texto.
+
+NOTA: COMO HICIMOS UNA MODIFICACION EN EL PROGRAMA DEBEMOS GENERAR NUEVAMENTE EL JAR EJECUTABLE PARA QUE TENGA ESTA MODIFICACION.
+
+--------------------------------------------------------------
+(v196) vamos a realizar mejoras al chat.
+
+1- vamos a hacer que al abiri el cliente,primero se abra un JOptionPane y nos pregunte el nick,y al escribirlo,abra la ventana del cliente y aparezca ese nick en una etiqueta label,asi no se podra cambiar el nick sobre la marcha,ese nick queda hay mientras chateamos.
+
+2- en el cuadro para meter la ip es mejor tener un comboBox en donde aparezcan todas las ips que esten online en ese momento, esto se puede hacer mejor con componentes avanzados de swing como las JList,pero como no las hemos visto entonces mejor con comboBox.La idea es que cuando se abra un cliente, envie una señal al servidor y el servidor al llegarle esa señal envie la ip de ese cliente al resto de clientes,asi sabran cuales ips estan online,cada ip que vaya recibiendo el servidor y envie a los demas clientes se ira cargando en el comboBox.
+
+3-para que el cliente envie una señal al servidor debemos crear un evento de ventana para que apenas se abra el cliente envie un paquete de datos al servidor y el servidor sepa la ip de ese cliente que le llegara en ese paquete de datos.Primero trabajaremos con el servidor para que detecte las ips de los clientes que esten abiertos,para esto usamos el metodo getInetAdress() de la clase Socket y la clase InetAdress.
+
+getInetAdress() devuelve la ip de donde esta conectado el socket del servidor,osea la ip del cliente,este metodo devuelve un dato de tipo InetAdress y esa clase tiene un metodo getHostAdress() que devuelve la ip pero como string.
+
+Entonces , despues de crear el socket del servidor en el while,creamos una variable de tipo InetAdress y con el metodo getInetAdress almacenamos alli la ip del cliente conectado,aunque no estara todavia en formato de tipo string.
+
+En el cliente para crear el evento de ventana para enviar la señal al servidor debemos crear una clase que gestione ese evento.Despues de crear la clase del evento la instanciamos en el constructor del marco porque apenas se abra el marco en el navegador se debe ejecutar el evento,osea ejecutamos la clase del evento,esto lo hacemos instanciando esa clase del evento dentro del metodo addWindowListener()
+
 
 
 */
@@ -86,6 +120,9 @@ NOTA: nosotros no vamos a hacer una segunda app cliente,sino que replicamos la q
 package julianSockets;
 
 import javax.swing.*;
+
+import julianSockets.LaminaCliente.PaqueteEnvio;
+
 import java.awt.event.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -112,6 +149,9 @@ class MarcoCliente extends JFrame {
         add(miLamina);
 
         setVisible(true);
+
+        // creamos el evento de ventana
+        addWindowListener(new EnvioOnLine());
     }
 }
 
@@ -119,21 +159,29 @@ class MarcoCliente extends JFrame {
 class LaminaCliente extends JPanel implements Runnable {
 
     private JTextField campo;
-    private JTextField nick;
-    private JTextField ip;
-
+    private JComboBox ip;
+    private JLabel nick;
     private JButton miBoton;
     private JTextArea campoChat;
 
     public LaminaCliente() {
 
-        nick = new JTextField(5);
+        // codigo para el nick del usuario
+        String nickUusario = JOptionPane.showInputDialog("Nick: ");
+        JLabel nNick = new JLabel("Nick: ");
+        add(nNick);
+        nick = new JLabel();
+        nick.setText(nickUusario);
         add(nick);
 
-        JLabel texto = new JLabel("-CHAT-");
+        JLabel texto = new JLabel("Online: ");
         add(texto);
 
-        ip = new JTextField(8);
+        ip = new JComboBox();
+        ip.addItem("Usuario 1");
+        ip.addItem("Usuario 2");
+        ip.addItem("Usuario 3");
+
         add(ip);
 
         campoChat = new JTextArea(12, 20);
@@ -160,6 +208,9 @@ class LaminaCliente extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            // esta linea permite que lo que escribimos se vea en el area de texto del chat
+            campoChat.append("\n" + campo.getText());
+
             // System.out.println(campo.getText());
 
             // SOCKET
@@ -171,7 +222,11 @@ class LaminaCliente extends JPanel implements Runnable {
                 // correspondientes
                 PaqueteEnvio datos = new PaqueteEnvio();
                 datos.setNick(nick.getText());
-                datos.setIp(ip.getText());
+
+                // usamos getSelectedItem para capturar lo que hay en cada item del comboBox de
+                // las ips.Como setIp pide un string como parametro usamos toString para pasar
+                // esta ip a string,o lo castemaos a String.
+                datos.setIp(ip.getSelectedItem().toString());
                 datos.setMensaje(campo.getText());
 
                 // flujo de datos de salida para enviar el objeto datos utilizando el socket
@@ -200,7 +255,7 @@ class LaminaCliente extends JPanel implements Runnable {
     }
 
     // clase que crea los objetos con los datos del mensaje a enviar
-    class PaqueteEnvio implements Serializable {
+    static class PaqueteEnvio implements Serializable {
 
         private String nick, ip, mensaje;
 
@@ -264,4 +319,37 @@ class LaminaCliente extends JPanel implements Runnable {
             e.printStackTrace();
         }
     }
+}
+
+// clase que gestiona el evento de ventana para enviar una señal al
+// servidor,hereda de la clase adaptadora WindowAdapter, recordemos que una
+// clase adaptadora al implementar interfaces permite que no tengamos que
+// sobreescribir todos los emtodos de la interfaz,WindowAdapter implemneta la
+// interfaz WindowListener la cual tiene muchos metodos,con esta clase
+// adapatadora solo usamos los que necesitamos, en este caso solo usamos el
+// metodo windowOpened() para que la accion se ejecute al abrir la ventana.
+class EnvioOnLine extends WindowAdapter {
+
+    public void windowOpened(WindowEvent e) {
+
+        try {
+            // creamos un socket
+            Socket miSocket = new Socket("192.168.0.3", 9999);
+
+            // creamos el paquete donde van los datos
+            PaqueteEnvio datos = new PaqueteEnvio();
+            datos.setMensaje("online");
+
+            // creamos flujo de datos y con writeObject le pasamos el objeto que ira por ese
+            // flujo
+            ObjectOutputStream paqueteDatos = new ObjectOutputStream(miSocket.getOutputStream());
+            paqueteDatos.writeObject(datos);
+
+            miSocket.close();
+
+        } catch (Exception e2) {
+            // TODO: handle exception
+        }
+    }
+
 }
