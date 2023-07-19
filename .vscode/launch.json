@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ConectaPruebas",
+            "request": "launch",
+            "mainClass": "src.conectaDB.ConectaPruebas",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
             "name": "Cliente",
             "request": "launch",
             "mainClass": "julianSockets.Cliente",
