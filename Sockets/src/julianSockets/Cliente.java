@@ -109,9 +109,29 @@ NOTA: COMO HICIMOS UNA MODIFICACION EN EL PROGRAMA DEBEMOS GENERAR NUEVAMENTE EL
 
 getInetAdress() devuelve la ip de donde esta conectado el socket del servidor,osea la ip del cliente,este metodo devuelve un dato de tipo InetAdress y esa clase tiene un metodo getHostAdress() que devuelve la ip pero como string.
 
-Entonces , despues de crear el socket del servidor en el while,creamos una variable de tipo InetAdress y con el metodo getInetAdress almacenamos alli la ip del cliente conectado,aunque no estara todavia en formato de tipo string.
+Entonces , en el metodo run del servidor en el while,creamos una variable de tipo InetAdress y con el metodo getInetAdress almacenamos alli la ip del cliente conectado,aunque no estara todavia en formato de tipo string.
 
 En el cliente para crear el evento de ventana para enviar la señal al servidor debemos crear una clase que gestione ese evento.Despues de crear la clase del evento la instanciamos en el constructor del marco porque apenas se abra el marco en el navegador se debe ejecutar el evento,osea ejecutamos la clase del evento,esto lo hacemos instanciando esa clase del evento dentro del metodo addWindowListener()
+
+----------------------------------------------------
+(v198) para que las ips se cargen dinamicamente en el desplegable de cada cliente a medida que se vayan conectando,creamos un ArrayList en el servidor donde vamos almacenando las ips detectadas por el servidor y despues este ArrayList lo iran leyendo los clientes y lo cargaran en cada uno de sus desplegables.
+
+-----------------------------------------------------------------
+(v199) hasta ahora la app chat trabaja asi: cuando abrimos un cliente este crea un paquete con el nick,la ip de destino que estara en principio vacia hasta que se cargen en el ArrayList del servidor y despues se lean,y un mensaje y a la vez este paquete lo envia al servidor.
+
+Despues el servidor cuando le llega este paquete,detecta la ip del cliente que le envio ese paquete gracias al socket que se crea para la comunicacion entre ese cliente y el servidor,y esa ip es la que se va almacenando en el ArrayList, gracias al metodo getInetAdress de la clase Socket el servidor puede detectar las ips de los clientes.
+
+1- debemos crear ese ArrayList porque aun no lo hemos echo,debe ser un ArrayList el que almacene las ips porque estos son dinamicos a diferencia de los arrays normales que toca pasarles un tamaño fijo,porque puede que se conecten dos o mas clientes, no sabemos cuantos se conectaran.Este ArrayList lo creamos en el metodo run del servidor pero fuera del while para que no se resetee cada vez que se conecte un cliente.Ese array se va llenando en el else con el metodo add().
+
+2-ahora,para que el servidor envie a los clientes ese array con las ips,no vamos a hacer de nuevo un socket y otro flujo de datos con otro paquete de datos,lo que haremos es en el paquete que se construye en la clase PaqueteEnvio con los datos del cliente,ademas de esos datos hacer que tambien se cree un ArrayList con sus correspondientes getters y setters para poder manipularlo.
+
+3- ahora,con el arrayList del servidor que tiene las ips que se van conectando,lo debo meter en el paquete que se va a enviar a los clientes desde el servidor.Este paquete ya tendra 4 datos,el nick,la ip,el mensaje y un arrayList.Entonces,como el paquete que se envia a los clientes desde el servidor es el que creamos que se llama paqueteRecibido de tipo PaqueteEnvio,con el metodo setter que acabamos de crear para el arrayList metemos en ese paquete el arrayList con la lista de ips,esto es en el servidor,en el metodo run en el else.
+
+4- ahora luego de esta linea,creamos un foreach para recorrer ese arrayList y dentro de el ponemos el codigo que ya hemos echo donde se crea un socket,un flujo de datos y se envia el paquete a los clientes.Asi cada cliente tendra una lista actualizada de las ips que esten online en ese momento.
+
+5- luego, aqui en el cliente se recibe ese paquete en el metodo run,entonces  con un if evaluamos si el mensaje del paquete no es "online",osea que ya estamos chateando,ponemos un mensaje en el campo de texto,si el mensaje es "online" es que el cliente se acaba de conectar entonces el mensaje que ponemos sera con la ip del cliente conectado.
+
+6- en el else, es donde creamos el codigo para que las ips que viene del paquete se almacenen en el comboBox,asi cuando se conecta un cliente,esa ip se va viendo reflejada en el comboBox.(v200)
 
 
 
@@ -130,6 +150,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.*;
+import java.util.ArrayList;
 
 public class Cliente {
     public static void main(String[] args) {
@@ -159,7 +180,7 @@ class MarcoCliente extends JFrame {
 class LaminaCliente extends JPanel implements Runnable {
 
     private JTextField campo;
-    private JComboBox ip;
+    private JComboBox<String> ip;
     private JLabel nick;
     private JButton miBoton;
     private JTextArea campoChat;
@@ -177,10 +198,9 @@ class LaminaCliente extends JPanel implements Runnable {
         JLabel texto = new JLabel("Online: ");
         add(texto);
 
-        ip = new JComboBox();
-        ip.addItem("Usuario 1");
-        ip.addItem("Usuario 2");
-        ip.addItem("Usuario 3");
+        ip = new JComboBox<String>();
+        ip.addItem("192.168.0.3");
+        ip.addItem("192.168.0.9");
 
         add(ip);
 
@@ -258,6 +278,7 @@ class LaminaCliente extends JPanel implements Runnable {
     static class PaqueteEnvio implements Serializable {
 
         private String nick, ip, mensaje;
+        private ArrayList<String> ips;
 
         // getters y setters
         public String getNick() {
@@ -282,6 +303,14 @@ class LaminaCliente extends JPanel implements Runnable {
 
         public void setMensaje(String mensaje) {
             this.mensaje = mensaje;
+        }
+
+        public ArrayList<String> getIps() {
+            return ips;
+        }
+
+        public void setIps(ArrayList<String> ips) {
+            this.ips = ips;
         }
 
     }
@@ -310,8 +339,31 @@ class LaminaCliente extends JPanel implements Runnable {
                 // almacenamos el objeto que llega por ese flujo de datos
                 paqueteRecibido = (PaqueteEnvio) flujoEntrada.readObject();
 
-                // visualizamos los datos en el area de texto
-                campoChat.append("\n" + "De " + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje());
+                // if para evaluar si se acaba de conectar o no un cliente y dependiendo de esto
+                // ponemos un mensaje en el area de texto del chat
+                if (!paqueteRecibido.getMensaje().equals("online")) {
+
+                    // visualizamos los datos en el area de texto
+                    campoChat.append("\n" + "De " + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje());
+                } else {
+
+                    // campoChat.append("\n" + paqueteRecibido.getIps());
+
+                    ArrayList<String> ipsMenu = new ArrayList<>();
+                    ipsMenu = paqueteRecibido.getIps();
+
+                    // con este codigo evitamos duplicidad de las ips cada vez que se conecte un
+                    // cliente y se genere un nuevo ArrayList con las ips.El metodo removeAllItems()
+                    // pertenece a la clase ComboBox.Asi,antes de agregar el arrayList actualizado
+                    // en elfor, se borra lo que pudiera haber en el comboBox.
+                    // ip.removeAllItems();
+
+                    for (String z : ipsMenu) {
+
+                        ip.addItem(z);
+                    }
+                }
+
             }
 
         } catch (IOException | ClassNotFoundException e) {

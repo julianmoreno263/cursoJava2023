@@ -3,6 +3,8 @@ package julianSockets;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import julianSockets.LaminaCliente.PaqueteEnvio;
@@ -52,23 +54,14 @@ class MarcoServidor extends JFrame implements Runnable {
             // variables para capturar los datos del cliente
             String nick, ip, mensaje;
 
+            // ArrayList que alamcena las ips de los clientes que se vayan conectando
+            ArrayList<String> listaIp = new ArrayList<>();
+
             // objeto para almacenar estos datos
             PaqueteEnvio paqueteRecibido;
 
             while (true) {
                 Socket miSocket = servidor.accept();
-
-                // --------- DETECTA ONLINE --------------------------
-
-                // aqui guardamos la ip como tipo InetAdress y despues con getHostAdress le
-                // damos formato de tipo string
-                InetAddress localizacion = miSocket.getInetAddress();
-                String ipRemota = localizacion.getHostAddress();
-
-                // prueba para ver si detecta las ip
-                System.out.println("Online " + ipRemota);
-
-                // ----------------------------------------
 
                 // flujo de datos de entrada para recibir el objeto
                 ObjectInputStream paqueteDatos = new ObjectInputStream(miSocket.getInputStream());
@@ -81,30 +74,74 @@ class MarcoServidor extends JFrame implements Runnable {
                 ip = paqueteRecibido.getIp();
                 mensaje = paqueteRecibido.getMensaje();
 
-                // escribimos en el area de texto lo que viene del cliente y cerramos el socket
-                areaTexto.append("\n" + "De " + nick + ": " + mensaje + " para " + ip);
+                if (!mensaje.equals("online")) {
 
-                // segundo socket para reenvio de informacion
-                Socket envioDestino = new Socket(ip, 9090);
+                    // escribimos en el area de texto lo que viene del cliente y cerramos el socket
+                    areaTexto.append("\n" + "De " + nick + ": " + mensaje + " para " + ip);
 
-                // creamos flujo para reenvio de informacion
-                ObjectOutputStream paqueteReenvio = new ObjectOutputStream(envioDestino.getOutputStream());
+                    // segundo socket para reenvio de informacion
+                    Socket envioDestino = new Socket(ip, 9090);
 
-                // metemos el paquete de datos dentro de este flujo para el reenvio y cerramos
-                // este flujo de datos y el socket
-                paqueteReenvio.writeObject(paqueteRecibido);
-                paqueteReenvio.close();
-                envioDestino.close();
+                    // creamos flujo para reenvio de informacion
+                    ObjectOutputStream paqueteReenvio = new ObjectOutputStream(envioDestino.getOutputStream());
 
-                // creamos flujo de entrada y alamcenamos el texto que llega
-                // DataInputStream flujoEntrada = new
-                // DataInputStream(miSocket.getInputStream());
-                // String mensajeTexto = flujoEntrada.readUTF();
+                    // metemos el paquete de datos dentro de este flujo para el reenvio y cerramos
+                    // este flujo de datos y el socket
+                    paqueteReenvio.writeObject(paqueteRecibido);
+                    paqueteReenvio.close();
+                    envioDestino.close();
 
-                // // escribimos en el area de texto lo que viene del cliente y cerramos el
-                // socket
-                // areaTexto.append("\n" + mensajeTexto);
-                miSocket.close();
+                    // creamos flujo de entrada y alamcenamos el texto que llega
+                    // DataInputStream flujoEntrada = new
+                    // DataInputStream(miSocket.getInputStream());
+                    // String mensajeTexto = flujoEntrada.readUTF();
+
+                    // // escribimos en el area de texto lo que viene del cliente y cerramos el
+                    // socket
+                    // areaTexto.append("\n" + mensajeTexto);
+                    miSocket.close();
+
+                } else {
+
+                    // --------- DETECTA ONLINE --------------------------
+
+                    // aqui guardamos la ip como tipo InetAdress y despues con getHostAdress le
+                    // damos formato de tipo string
+                    InetAddress localizacion = miSocket.getInetAddress();
+                    String ipRemota = localizacion.getHostAddress();
+
+                    // prueba para ver si detecta las ip
+                    System.out.println("Online " + ipRemota);
+
+                    // aqui se va llenando el ArrayList con las ips
+                    listaIp.add(ipRemota);
+
+                    // metemos ese ArrayList con las ips en el paquete a enviar a los clientes
+                    paqueteRecibido.setIps(listaIp);
+
+                    // foreach para recorrer el arrayList y enviar el paquete a cada cliente con los
+                    // datos de las ips conectadas
+                    for (String z : listaIp) {
+
+                        System.out.println("Array: " + z);
+
+                        // segundo socket para reenvio de informacion
+                        Socket envioDestino = new Socket(z, 9090);
+
+                        // creamos flujo para reenvio de informacion
+                        ObjectOutputStream paqueteReenvio = new ObjectOutputStream(envioDestino.getOutputStream());
+
+                        // metemos el paquete de datos dentro de este flujo para el reenvio y cerramos
+                        // este flujo de datos y el socket
+                        paqueteReenvio.writeObject(paqueteRecibido);
+                        paqueteReenvio.close();
+                        envioDestino.close();
+                        miSocket.close();
+                    }
+
+                    // ----------------------------------------
+                }
+
             }
 
         } catch (IOException | ClassNotFoundException e) {
