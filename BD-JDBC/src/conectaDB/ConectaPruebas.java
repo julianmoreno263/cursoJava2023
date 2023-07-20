@@ -32,6 +32,9 @@ NOTA: SI ESTAMOS EN phpMyAdmin podemos poner en sql esta sentencia para saber el
 
 nos saca una tabla con el nombre de host y lo mas importante el puerto.
 
+---------------------------------------------------
+(v203) video de resolucion de dudas y preguntas.
+
  */
 
 package src.conectaDB;

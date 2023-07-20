@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ConsultaPreparada",
+            "request": "launch",
+            "mainClass": "src.conectaDB.ConsultaPreparada",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "ModificaBD",
+            "request": "launch",
+            "mainClass": "src.conectaDB.ModificaBD",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
             "name": "ConectaPruebas",
             "request": "launch",
             "mainClass": "src.conectaDB.ConectaPruebas",
