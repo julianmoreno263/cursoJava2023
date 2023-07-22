@@ -5,13 +5,13 @@ import src.modelo.*;
 
 import java.awt.event.*;
 
-public class ControladorCargaSecciones extends WindowAdapter {
+public class ControladorCargaMenus extends WindowAdapter {
 
-    CargaSecciones obj = new CargaSecciones();
+    CargaMenus obj = new CargaMenus();
     private MarcoAplicacion2 elMarco;
 
     // constructor
-    public ControladorCargaSecciones(MarcoAplicacion2 elMarco) {
+    public ControladorCargaMenus(MarcoAplicacion2 elMarco) {
 
         this.elMarco = elMarco;
     }
@@ -27,7 +27,13 @@ public class ControladorCargaSecciones extends WindowAdapter {
             while (obj.rs.next()) {
 
                 // aqui meto los datos del resulset en el comboBox de secciones
-                elMarco.secciones.addItem(obj.rs.getString("seccion"));
+                elMarco.secciones.addItem(obj.rs.getString(1));
+            }
+
+            while (obj.rs2.next()) {
+
+                // aqui meto los datos del resulset en el comboBox de paises
+                elMarco.paises.addItem(obj.rs2.getString(1));
             }
 
         } catch (Exception e2) {

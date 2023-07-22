@@ -9,9 +9,9 @@ public class MarcoAplicacion2 extends JFrame {
 
     public JComboBox secciones;
 
-    private JComboBox paises;
+    public JComboBox paises;
 
-    private JTextArea resultado;
+    public JTextArea resultado;
 
     private final String sqlSeccion = "select nombrearticulo,seccion,precio,paisdeorigen from productos where seccion=?";
 
@@ -61,8 +61,13 @@ public class MarcoAplicacion2 extends JFrame {
 
         add(botonConsulta, BorderLayout.SOUTH);
 
+        // aqui ponemos al boton a la escucha del evento click el cual llamara al
+        // controlador ControladorBotonEjecuta y este a la vez ejecuta las consultas del
+        // modelo, se le pasa el propio marco por parametro.
+        botonConsulta.addActionListener(new ControladorBotonEjecuta(this));
+
         // aqui ponemos este marco a la escucha del evento de tipo ventana para que
-        // apenas abra la app cargen los datos en el comboBox de seccion
-        addWindowListener(new ControladorCargaSecciones(this));
+        // apenas abra la app cargen los datos en el comboBox de seccion y pais
+        addWindowListener(new ControladorCargaMenus(this));
     }
 }

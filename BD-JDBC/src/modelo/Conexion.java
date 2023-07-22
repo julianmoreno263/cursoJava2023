@@ -1,4 +1,4 @@
-package src.controlador;
+package src.modelo;
 
 import java.sql.*;
 

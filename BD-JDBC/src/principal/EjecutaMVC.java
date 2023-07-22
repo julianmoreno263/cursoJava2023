@@ -10,13 +10,13 @@ Vamos a seguir trabajando con la app que nos trae datos de la tabla productos y 
 Cada vez que queramos usar una clase de otro paquete debemos importar ese paquete.
 
 -----------------------------------------------------------------------------
-(v211)El profesor dice que hay personas que ponene la conexion a la bd en el modelo y otros en el controlador,nosotros la vamos a poner en el controlador y el manejo de los datos en el modelo.
+(v211)La conexion se crea en el modelo
 
 En el modelo el mvc establece que todos los datos que se vayan a manejar se deben de encapsular para que no sean accesibles desde fuera.En esta app los datos que se manejan de la tabla de la bd son nombrearticulo,precio,seccion y paisdeorigen,luego estos datos son los que se deben de encapsular para solo poder ser manipulados por los correspondientes metodos getters y setters.
 
 Inicialmente para este ejercicio les daremos un estado inicial a estos datos desde el constructor del modelo.Para crear los getters y setters para acceder a estos campos encapsulados dejamos que sea vsc el que los genere.
 
-Ahora, ya dividiod el codigo en sus archivos correspondientes debemos hacer que la app funcione,lo primero es hacer que al abrir la app se cargen los items de los comboBox y esto se hace con un evento que es "al abrir la app".
+Ahora, ya dividido el codigo en sus archivos correspondientes debemos hacer que la app funcione,lo primero es hacer que al abrir la app se cargen los items de los comboBox y esto se hace con un evento que es "al abrir la app".
 
 1- el evento de abrir la app se crea en el controlador y este evento debe cargar los comboBox,entonces esa accion de cargar los items de cada comboBox es una consulta a la bd,por lo que eso debe ir en el modelo.Segun como uno piense la app asi mismo va viendo que ocurre y que debe de ir en cada parte del mvc.
 
@@ -40,6 +40,37 @@ Entonces,como vamos a necesitar el resultset del modelo y el comboBox de seccion
 6- por ultimo,para que este evento se ejecute,debemnos ir a la vista y decirle al marco que debe estar a la escucha de ese evento,porque ese evento se dispara cuando se abre la app,osea cuando se abre el marco para que cargen los comboBox con los datos.Esto se hace en la clase MarcoAplicacion2 con el metodo addWindowListener(porque es un evento de ventana) al que se le pasa esa clase ControladorCargaSecciones y como esta clase pide un parametro de tipo MarcoAplicacion2 pues ese objeto que se le pasa es el mismo marco,osea se pone this.
 
 LISTOO!!  APENAS CARGE LA APP CARGAN TAMBIEN LOS ITEMS DEL COMBO DE SECCIONES.
+
+------------------------------------------------------
+(v213) correccion de errores en el codigo,sobretodo se cambio el metodo ejecutaConsultas de la clase CargaSecciones del modelo.
+
+------------------------------------------------------------------
+(v214) vamos a crear ahora el codigo para cargar los paises en el otro comboBox,lo haremos en el mismo archivo de las secciones por lo que le cambiamos el nombre a este archivo para que se llame CargaMenus.java, lo mismo para la clase del controlador ControladorCargaSecciones.
+
+1- ahora, en CargaMenus del modelo creo otro resultset para los paises,tambien creo su correspondiente statement para despues crear la consulta sql.Esto dentro del metodo ejecutaConsultas().
+
+2- ahora, en el controlador en la clase ControladorCargaMenus en el while donde recorre los resultset creo otro while para el resultset de paises.Hay que hacer dos while para esto porque como las consultas sql tienen "distinctrow" no pueden ir devolviendo secciones y paises a la vez.
+
+-----------------------------------------------------------
+(v215) ahora, vamos a hacer que el boton del marco responda a eventos,y que se ejecuten las consultas correspondientes segun lo que el usuario escoja en cada comboBox,para esto debemos hacer otro archivo en modelo para las consultas correspondientes y otro archivo en controlador para que gestione el evento del boton al dar click y asi ejecute las consultas.
+
+1- primero hacemos la clase del modelo para crear las consultas a la bd segun lo que escoja el usuario,la llamaremos EjecutaConsultas.java. En esta clase creamos un metodo que ejecutara las consultas y ese metodo despues sera llamado por el evento que dispare al dar click en el boton.
+
+2- en este metodo se evalua con los correspondientes if-else if, las tres posibilidades que escoja el usuario,osea si escogio solo seccion,solo pais o escogio ambas.
+
+3- ahora creamos la clase para que gestione el evento click del boton y asi se ejecute la respectiva consulta que hay en el modelo.Como esta clase gestionara eventos debe implementar la interfaz ActionListener,debemos importar el paquete java.awt.event.Desde esta clase debemos ser capaces de hacer dos cosas:
+
+- acceder a la clase EjecutaConsultas del modelo para poder acceder a su metodo filtraDB que creamos para poder ejecutar las respectivas consultas,para esto debo importar el paquete del modelo y despues crear un objeto de esa clase para poder acceder al metodo filtraDB.
+
+-Y tambien esta clase del controlador debe poder recibir por parametro un objeto de la clase MarcoAplicacion2 de la vista para poder acceder al boton y manipularlo,para esto importamos tambien el paquete vista.Ese parametro se le pasa por medio del metodo constructor.
+
+4- creo un campo de clase de tipo MarcoAplicacion2 y con este campo dentro del metodo actionPerformed puedo seleccionar lo que el usuario escoja en secciones y paises.
+
+5-despues pongo en el area de texto del marco el resultado de la consulta,esto lo hago usando el metodo append() y dentro de este metodo llamo al metodo del modelo que ejecuta estas consultas.Para poder llamar a ese metodo lo hago creando un objeto de tipo EjecutaConsultas que es la clase del modelo.
+
+6- ahora ponemos el boton del marco a la escucha del evento para que cuando se haga click se ejecute el controlador, esto se hace en el archivo MarcoAplicacion2,utilizando addActionListener(new ControladorBotonEjecuta(this)).El this hace referencia al propio marco porque el constructor de ControladorBotonEjecuta() pide un objeto de tipo del marco.
+
+Listo!! hasta aqui ya esta el boton a la escuha del evento y pone los strings iniciales que creamos de prueba en las consultas en el area de texto,ahora debemos crear las consultas pertinentes.
 
 
 
