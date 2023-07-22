@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EjecutaMVC",
+            "request": "launch",
+            "mainClass": "src.principal.EjecutaMVC",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
             "name": "AplicacionConsulta",
             "request": "launch",
             "mainClass": "src.conectaDB.AplicacionConsulta",
