@@ -4,11 +4,13 @@ import src.modelo.*;
 import src.vista.*;
 
 import java.awt.event.*;
+import java.sql.*;
 
 public class ControladorBotonEjecuta implements ActionListener {
 
     private EjecutaConsultas obj = new EjecutaConsultas();
     private MarcoAplicacion2 elMarco;
+    private ResultSet resultadoConsulta;
 
     // constructor
     public ControladorBotonEjecuta(MarcoAplicacion2 elMarco) {
@@ -23,12 +25,31 @@ public class ControladorBotonEjecuta implements ActionListener {
         String seleccionSeccion = (String) elMarco.secciones.getSelectedItem();
         String seleccionPais = (String) elMarco.paises.getSelectedItem();
 
-        // escribo lo que las consultas arrojen en el area de texto del amrco
-        elMarco.resultado.append(obj.filtraBD(seleccionSeccion, seleccionPais));
+        resultadoConsulta = obj.filtraBD(seleccionSeccion, seleccionPais);
 
-        // salto de linea en el area de texto para que muestre los resultados uno debajo
-        // del otro si damos click en el boton varias veces
-        elMarco.resultado.append("\n");
+        try {
+
+            // con esto reseteamos el area de texto cada vez que saque nuevos resultados
+            elMarco.resultado.setText("");
+
+            while (resultadoConsulta.next()) {
+
+                elMarco.resultado.append(resultadoConsulta.getString(1));
+                elMarco.resultado.append(", ");
+
+                elMarco.resultado.append(resultadoConsulta.getString(2));
+                elMarco.resultado.append(", ");
+
+                elMarco.resultado.append(resultadoConsulta.getString(3));
+                elMarco.resultado.append(", ");
+
+                elMarco.resultado.append(resultadoConsulta.getString(4));
+                elMarco.resultado.append("\n");
+            }
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
 
     }
 

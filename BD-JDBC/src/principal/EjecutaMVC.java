@@ -70,8 +70,15 @@ LISTOO!!  APENAS CARGE LA APP CARGAN TAMBIEN LOS ITEMS DEL COMBO DE SECCIONES.
 
 6- ahora ponemos el boton del marco a la escucha del evento para que cuando se haga click se ejecute el controlador, esto se hace en el archivo MarcoAplicacion2,utilizando addActionListener(new ControladorBotonEjecuta(this)).El this hace referencia al propio marco porque el constructor de ControladorBotonEjecuta() pide un objeto de tipo del marco.
 
-Listo!! hasta aqui ya esta el boton a la escuha del evento y pone los strings iniciales que creamos de prueba en las consultas en el area de texto,ahora debemos crear las consultas pertinentes.
+Listo!! hasta aqui ya esta el boton a la escucha del evento y pone los strings iniciales que creamos de prueba en las consultas en el area de texto,ahora debemos crear las consultas pertinentes.
 
+--------------------------------------------------------------
+(v216) vamos a crear las consultas en el archivo EjecutaConsultas.java del modelo.Entonces necesitamos hacer dos cosas, crear una conexion a la bd y crear consultas preparadas.
+
+Ya teniamos una conexion que usamos pára los comboBox,pero esa conexion la cerramos,y ademas es mejor crear una nueva para realizar las consultas en vez de tenerme que traer la que ya habiamos echo.
+
+------------------------------------------------------------------
+(v217) creamos las otras consultas para las demas condiciones en EjecutaConsultas.
 
 
 
