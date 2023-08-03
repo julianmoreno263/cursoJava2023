@@ -33,7 +33,7 @@ Lo bueno de este tipo de consultas preparadas es que la puedo reutilizar solo ca
 
 */
 
-package src.conectaDB;
+package conectaDB;
 
 import java.sql.*;
 

@@ -1,4 +1,4 @@
-package src.modelo;
+package MVC.modelo;
 
 public class Productos {
 

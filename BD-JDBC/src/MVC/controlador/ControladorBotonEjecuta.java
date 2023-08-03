@@ -1,7 +1,7 @@
-package src.controlador;
+package MVC.controlador;
 
-import src.modelo.*;
-import src.vista.*;
+import MVC.modelo.*;
+import MVC.vista.*;
 
 import java.awt.event.*;
 import java.sql.*;

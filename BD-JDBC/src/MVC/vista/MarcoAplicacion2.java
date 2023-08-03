@@ -1,9 +1,9 @@
-package src.vista;
+package MVC.vista;
 
 import java.awt.*;
 import javax.swing.*;
 
-import src.controlador.*;
+import MVC.controlador.*;
 
 public class MarcoAplicacion2 extends JFrame {
 

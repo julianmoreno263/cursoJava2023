@@ -85,11 +85,11 @@ Ya teniamos una conexion que usamos pára los comboBox,pero esa conexion la cerr
 
  */
 
-package src.principal;
+package MVC.principal;
 
 import javax.swing.JFrame;
 
-import src.vista.*;
+import MVC.vista.*;
 
 public class EjecutaMVC {
     public static void main(String[] args) {

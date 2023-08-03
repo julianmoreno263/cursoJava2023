@@ -21,7 +21,7 @@
 
  */
 
-package src.conectaDB;
+package conectaDB;
 
 import javax.swing.*;
 import java.awt.*;

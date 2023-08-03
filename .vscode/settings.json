@@ -9,6 +9,8 @@
         "Excepciones/src",
         "Colecciones/src",
         "Calculadora",
+        "BD-JDBC/src/principal",
+        "BD-JDBC/src",
         "AccesoArchivos/src",
         "BD-JDBC"
     ],

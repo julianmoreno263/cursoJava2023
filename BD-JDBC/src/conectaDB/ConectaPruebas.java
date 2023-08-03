@@ -37,7 +37,7 @@ nos saca una tabla con el nombre de host y lo mas importante el puerto.
 
  */
 
-package src.conectaDB;
+package conectaDB;
 
 import java.sql.*;
 

@@ -8,6 +8,55 @@
             "type": "java",
             "name": "EjecutaMVC",
             "request": "launch",
+            "mainClass": "MVC.principal.EjecutaMVC",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "AplicacionConsulta",
+            "request": "launch",
+            "mainClass": "conectaDB.AplicacionConsulta",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "EjecutaMVC",
+            "request": "launch",
+            "mainClass": "conectaDB.principal.EjecutaMVC",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "AplicacionConsulta",
+            "request": "launch",
+            "mainClass": "appBD.AplicacionConsulta",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "AplicacionConsulta",
+            "request": "launch",
+            "mainClass": "AplicacionConsulta",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "AplicacionConsulta",
+            "request": "launch",
+            "mainClass": "conectaDB.conectaDB.AplicacionConsulta",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "EjecutaMVC",
+            "request": "launch",
+            "mainClass": "src.principal.EjecutaMVC",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "EjecutaMVC",
+            "request": "launch",
             "mainClass": "src.principal.EjecutaMVC",
             "projectName": "cursoJava2023-master_e635572a"
         },

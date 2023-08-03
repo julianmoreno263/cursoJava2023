@@ -10,7 +10,7 @@
 
  */
 
-package src.conectaDB;
+package conectaDB;
 
 import java.sql.*;
 

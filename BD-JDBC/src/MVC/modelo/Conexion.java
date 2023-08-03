@@ -1,4 +1,4 @@
-package src.modelo;
+package MVC.modelo;
 
 import java.sql.*;
 
