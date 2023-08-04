@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ActualizaProductos",
+            "request": "launch",
+            "mainClass": "procAlmacenado.ActualizaProductos",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
+            "name": "ConsultaClientes",
+            "request": "launch",
+            "mainClass": "procAlmacenado.ConsultaClientes",
+            "projectName": "cursoJava2023-master_e635572a"
+        },
+        {
+            "type": "java",
             "name": "EjecutaMVC",
             "request": "launch",
             "mainClass": "MVC.principal.EjecutaMVC",
