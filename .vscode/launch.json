@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "InsertaClientesPedidos",
+            "request": "launch",
+            "mainClass": "transacciones.InsertaClientesPedidos",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "ActualizaProductos",
+            "request": "launch",
+            "mainClass": "procAlmacenado.ActualizaProductos",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "ConsultaClientes",
+            "request": "launch",
+            "mainClass": "procAlmacenado.ConsultaClientes",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
             "name": "ActualizaProductos",
             "request": "launch",
             "mainClass": "procAlmacenado.ActualizaProductos",

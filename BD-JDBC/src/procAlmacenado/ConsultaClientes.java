@@ -8,7 +8,7 @@ Entonces,por ejemplo vamos a crear un procedimiento para que nos muestre todos l
 
 2-	Se pone el código sql que almacenara el procedimiento.
 
-create procedure muestra-clientes()
+create procedure muestraClientes()
 select * from clientes where población=”Barcelona”
 
 al actualizar phpMyAdmin aparecerá en la bd la sección de procedimientos almacenados.Para utilizarlo vamos a hacer un programa que e stara dentro de un nuevo paquete en el proyecto de BD-JDBC. Para utilizar el procedimiento almacenado debo usar la interfaz CallableStatement y el metodo prepareCall(), en este metodo uso "{call nombre-procedimiento}" para llamarlo.
@@ -58,14 +58,14 @@ public class ConsultaClientes {
             Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/pruebas", "root", "");
 
             // para usar el procedimento almacenado utilizo la interfaz CallableStatement
-            CallableStatement miProc = miConexion.prepareCall("{call muestra_clientes()}");
+            CallableStatement miProc = miConexion.prepareCall("{call muestraClientes()}");
 
             // para verlo puedo crear un resultset y recorrelo.
             ResultSet rs = miProc.executeQuery();
 
             while (rs.next()) {
 
-                System.out.println(rs.getString(1) + "" + rs.getString(2) + "" + rs.getString(3));
+                System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
             }
 
             rs.close();
