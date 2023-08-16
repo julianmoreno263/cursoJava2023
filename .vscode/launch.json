@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TransaccionProductos",
+            "request": "launch",
+            "mainClass": "transacciones.TransaccionProductos",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
             "name": "InsertaClientesPedidos",
             "request": "launch",
             "mainClass": "transacciones.InsertaClientesPedidos",

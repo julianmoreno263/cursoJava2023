@@ -13,7 +13,7 @@ Para trabajar con transacciones en jdbc utilizaremos 3 metodos del objeto Connec
 
 Vamos a hacer un ejercicio con la bd pruebas específicamente manejando las tablas de clientes y pedidos las cuales están relacionadas,no puede existir un pedido que no pertenezca a un cliente y no puede haber un cliente que no haya echo pedidos.
 
-El profe nos da este archivo donde inicialmente no tenemos transaccion niguna, por lo que las dos instrucciones sql se ejecutan individualmente,por lo que si depronto se ejecuta la primera sentencia y crea el cliente pero al ejecutar la segunda sentencia se produce un error,no se crea el pedido,y lo que queremos es que se creen los clientes siempre y cuando se les cree un correspondiente pedido,y viceversa,para asi mantener la integridad de la informacion,es aqui donde debemos usar las tranasacciones.
+El profe nos da este archivo donde inicialmente no tenemos transaccion niguna, por lo que las dos instrucciones sql se ejecutan individualmente,por lo que si depronto se ejecuta la primera sentencia y crea el cliente pero al ejecutar la segunda sentencia se produce un error,no se crea el pedido,y lo que queremos es que se creen los clientes siempre y cuando se les cree un correspondiente pedido,y viceversa,para asi mantener la integridad de la informacion,es aqui donde debemos usar las transacciones.
 
 1- entonces,para crear la transaccion le decimos a java que las instrucciones sql trabajaran en bloque,usando el metodo setAutoCommit(false) del objeto Connect,osea de la conexion.
 
@@ -22,6 +22,8 @@ El profe nos da este archivo donde inicialmente no tenemos transaccion niguna, p
 3- en el catch trato el posible error usando el metodo roolback(), debo declarar la variable miConexion fuera del bloque try para poder usarlo despues en el catch,entonces lo declaro iniciandolo en null(porque es un objeto),este rollback() tambien debe ir dentro de un try-catch.
 
 Listoo!, ya con esto,las sentencias sql trabajan en bloque,si por ejemplo una falla,no se ejecuta nada y el roolback asegura la integridad de los datos dejandolos como estaban.Por ejemplo una instruccion sql puede estar mal escrita,se escribio un campo mal,entonces esto da un error al ejecutar las instrucciones pero la bd estara protegida y no se realizara cambio alguno hasta que se corrija el error.
+
+
  */
 
 package transacciones;
