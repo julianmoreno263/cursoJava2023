@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AplicacionUniversal",
+            "request": "launch",
+            "mainClass": "aplicacionFinal.AplicacionUniversal",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
+            "name": "InfoMetaDatos",
+            "request": "launch",
+            "mainClass": "metaDatos.InfoMetaDatos",
+            "projectName": "cursoJava2023-master_bfba0d37"
+        },
+        {
+            "type": "java",
             "name": "TransaccionProductos",
             "request": "launch",
             "mainClass": "transacciones.TransaccionProductos",
